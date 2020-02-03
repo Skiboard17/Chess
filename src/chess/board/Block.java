@@ -2,8 +2,9 @@ package chess.board;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+import chess.main.Main;
 import static chess.main.Main.BLOCK_SIZE;
+import static chess.main.Main.Blocks;
 
 public class Block extends Rectangle {
     private boolean isLight;
@@ -24,5 +25,9 @@ public class Block extends Rectangle {
 
     public boolean isLight() {
         return isLight;
+    }
+
+    public Block findBlock(int x, int y){
+        return Blocks[x][y];
     }
 }

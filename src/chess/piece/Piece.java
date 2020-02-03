@@ -1,5 +1,6 @@
 package chess.piece;
 
+import chess.board.Block;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 
@@ -8,6 +9,7 @@ import static chess.main.Main.BLOCK_SIZE;
 public abstract class Piece extends StackPane {
     private PieceType type;
     private boolean isWhite;
+    private Block position;
 
     public PieceType getType() {
         return type;
@@ -27,4 +29,6 @@ public abstract class Piece extends StackPane {
     public boolean isWhite() {
         return isWhite;
     }
+
+    public abstract move()
 }
