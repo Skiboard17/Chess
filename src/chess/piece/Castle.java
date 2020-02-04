@@ -17,4 +17,13 @@ public class Castle extends Piece {
         ImageView imageView = new ImageView(castle);
         getChildren().add(imageView);
     }
+
+    public boolean move(int x, int y){
+        // TODO
+        if (hasSameColor){
+            return false;
+        }
+        if (x == this.)
+        return true;
+    }
 }

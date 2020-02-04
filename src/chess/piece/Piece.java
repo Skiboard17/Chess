@@ -31,4 +31,10 @@ public abstract class Piece extends StackPane {
     }
 
     public abstract move()
+
+    // check if the intended move has the same color
+    public boolean hasSameColor(int x, int y){
+        Block destination = findBlock(x, y);
+        return Block.getPiece().isWhite == this.isWhite();
+    }
 }

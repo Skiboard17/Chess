@@ -8,6 +8,7 @@ import static chess.main.Main.Blocks;
 
 public class Block extends Rectangle {
     private boolean isLight;
+    private Piece piece;
 
     public Block(boolean isLight, int x, int y) {
         this.isLight = isLight;
@@ -27,7 +28,15 @@ public class Block extends Rectangle {
         return isLight;
     }
 
-    public Block findBlock(int x, int y){
+    public boolean hasPiece(){
+        return piece == null;
+    }
+
+    public Piece getPiece(){
+        return piece;
+    }
+
+    public static Block findBlock(int x, int y){
         return Blocks[x][y];
     }
 }
