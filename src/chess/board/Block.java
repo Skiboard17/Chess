@@ -10,6 +10,13 @@ import static chess.main.Main.Blocks;
 public class Block extends Rectangle {
     private boolean isLight;
     private Piece piece;
+    private boolean borderOn;
+    private EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() { 
+        @Override 
+        public void handle(MouseEvent e) { 
+            changeBorder();
+        } 
+    };  
 
     public Block(boolean isLight, int x, int y) {
         this.isLight = isLight;
@@ -41,4 +48,29 @@ public class Block extends Rectangle {
         int index = y * 8 + x;
         return (Block) Blocks.getChildren().get(index);
     }
+
+    public void changeBorder(){
+        // TODO: Check the functionality
+        Paint paint = null;
+        if (borderOn){
+            paint = Color.WHITE;
+            borderOn
+        } else {
+            paint = Color.RED;
+        }
+        borderOn = !borderOn;
+        Border border = borderHelper(paint);
+        this.setBorder(border);
+    }
+
+    public Border borderHelper(Paint color){
+        BorderStrokeStyle style = BorderStrokeStyle.DASHED;
+        CornerRadii radii = new CornerRadii(BLOCK_SIZE / 2);
+        BorderWidths width = new BorderWidths(3);
+        BorderStroke stroke = new BorderStroke(red, style, radii, width);
+        Border border = new Border(stroke);
+        return border;
+    }
+
+    
 }
