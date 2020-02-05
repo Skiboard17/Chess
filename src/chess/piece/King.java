@@ -3,6 +3,8 @@ package chess.piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import static chess.main.Main.*;
+
 public class King extends Piece {
     public King(int x, int y) {
         super(x, y);
@@ -14,6 +16,6 @@ public class King extends Piece {
             king = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_kdt60.png");
         }
         ImageView imageView = new ImageView(king);
-        getChildren().add(imageView);
+        this.getChildren().add(imageView);
     }
 }

@@ -15,6 +15,6 @@ public class Bishop extends Piece {
             bishop = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_bdt60.png");
         }
         ImageView imageView = new ImageView(bishop);
-        getChildren().add(imageView);
+        this.getChildren().add(imageView);
     }
 }

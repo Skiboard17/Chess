@@ -1,8 +1,9 @@
 package chess.board;
 
+import chess.piece.Piece;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import chess.main.Main;
+
 import static chess.main.Main.BLOCK_SIZE;
 import static chess.main.Main.Blocks;
 
@@ -28,15 +29,16 @@ public class Block extends Rectangle {
         return isLight;
     }
 
-    public boolean hasPiece(){
+    public boolean hasPiece() {
         return piece == null;
     }
 
-    public Piece getPiece(){
+    public Piece getPiece() {
         return piece;
     }
 
-    public static Block findBlock(int x, int y){
-        return Blocks[x][y];
+    public static Block findBlock(int x, int y) {
+        int index = y * 8 + x;
+        return (Block) Blocks.getChildren().get(index);
     }
 }

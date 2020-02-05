@@ -6,8 +6,11 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 
 public class Main extends Application {
 
@@ -15,20 +18,19 @@ public class Main extends Application {
     public static final int HEIGHT = 8;
     public static final int WIDTH = 8;
 
-    public static Block[][] Blocks = new Block[8][8];
-    // TODO: trying to replace group with 2-D array
-    // Consider using Arraylist if 2-D array is not accepted by add()
+    public static Group Blocks = new Group();
     public static Group Pieces = new Group();
 
     private Parent setup() {
         Pane root = new Pane();
         root.setPrefSize(WIDTH * BLOCK_SIZE, HEIGHT * BLOCK_SIZE);
-        root.getChildren().addAll(Blocks, Pieces);
+        root.getChildren().add(Blocks);
+        root.getChildren().add(Pieces);
         for (int y = 0; y < WIDTH; y++) {
             for (int x = 0; x < HEIGHT; x++) {
                 // setting up boards
                 Block block = new Block((x + y) % 2 == 0, x, y);
-                Blocks[x][y] = block;
+                Blocks.getChildren().add(block);
                 // setting up pieces
                 if (y == 1 || y == 6) {
                     Piece piece = new Pond(x, y);

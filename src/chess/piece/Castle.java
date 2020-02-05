@@ -3,6 +3,8 @@ package chess.piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import static chess.main.Main.*;
+
 public class Castle extends Piece {
 
     public Castle(int x, int y) {
@@ -15,15 +17,15 @@ public class Castle extends Piece {
             castle = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rdt60.png");
         }
         ImageView imageView = new ImageView(castle);
-        getChildren().add(imageView);
+        this.getChildren().add(imageView);
     }
 
-    public boolean move(int x, int y){
-        // TODO
-        if (hasSameColor){
-            return false;
-        }
-        if (x == this.)
-        return true;
-    }
+//    public boolean move(int x, int y){
+//        // TODO
+//        if (hasSameColor){
+//            return false;
+//        }
+//        if (x == this.)
+//        return true;
+//    }
 }

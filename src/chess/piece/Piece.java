@@ -4,11 +4,12 @@ import chess.board.Block;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 
+import static chess.board.Block.findBlock;
 import static chess.main.Main.BLOCK_SIZE;
 
 public abstract class Piece extends StackPane {
     private PieceType type;
-    private boolean isWhite;
+    private final boolean isWhite;
     private Block position;
 
     public PieceType getType() {
@@ -30,11 +31,11 @@ public abstract class Piece extends StackPane {
         return isWhite;
     }
 
-    public abstract move()
+//    public abstract boolean move(); TODO
 
     // check if the intended move has the same color
-    public boolean hasSameColor(int x, int y){
+    public boolean hasSameColor(int x, int y) {
         Block destination = findBlock(x, y);
-        return Block.getPiece().isWhite == this.isWhite();
+        return destination.getPiece().isWhite() == this.isWhite();
     }
 }

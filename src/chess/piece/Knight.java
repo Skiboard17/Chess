@@ -3,6 +3,8 @@ package chess.piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import static chess.main.Main.*;
+
 public class Knight extends Piece {
 
     public Knight(int x, int y) {
@@ -15,6 +17,6 @@ public class Knight extends Piece {
             knight = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_ndt60.png");
         }
         ImageView imageView = new ImageView(knight);
-        getChildren().add(imageView);
+        this.getChildren().add(imageView);
     }
 }

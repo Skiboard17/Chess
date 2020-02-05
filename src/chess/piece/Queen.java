@@ -3,6 +3,8 @@ package chess.piece;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import static chess.main.Main.*;
+
 public class Queen extends Piece {
 
     public Queen(int x, int y) {
@@ -15,6 +17,6 @@ public class Queen extends Piece {
             queen = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_qdt60.png");
         }
         ImageView imageView = new ImageView(queen);
-        getChildren().add(imageView);
+        this.getChildren().add(imageView);
     }
 }
