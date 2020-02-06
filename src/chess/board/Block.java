@@ -1,7 +1,11 @@
 package chess.board;
 
 import chess.piece.Piece;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import static chess.main.Main.BLOCK_SIZE;
@@ -11,12 +15,7 @@ public class Block extends Rectangle {
     private boolean isLight;
     private Piece piece;
     private boolean borderOn;
-    private EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() { 
-        @Override 
-        public void handle(MouseEvent e) { 
-            changeBorder();
-        } 
-    };  
+    private EventHandler<MouseEvent> eventHandler = e -> changeBorder();
 
     public Block(boolean isLight, int x, int y) {
         this.isLight = isLight;
@@ -49,28 +48,12 @@ public class Block extends Rectangle {
         return (Block) Blocks.getChildren().get(index);
     }
 
-    public void changeBorder(){
-        // TODO: Check the functionality
-        Paint paint = null;
-        if (borderOn){
-            paint = Color.WHITE;
-            borderOn
+    public void changeBorder() {
+        if (borderOn) {
+            this.setStroke(Color.BLUE);
         } else {
-            paint = Color.RED;
+            this.setStroke(Color.WHITE);
         }
         borderOn = !borderOn;
-        Border border = borderHelper(paint);
-        this.setBorder(border);
     }
-
-    public Border borderHelper(Paint color){
-        BorderStrokeStyle style = BorderStrokeStyle.DASHED;
-        CornerRadii radii = new CornerRadii(BLOCK_SIZE / 2);
-        BorderWidths width = new BorderWidths(3);
-        BorderStroke stroke = new BorderStroke(red, style, radii, width);
-        Border border = new Border(stroke);
-        return border;
-    }
-
-    
 }
