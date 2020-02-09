@@ -6,8 +6,6 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -32,42 +30,43 @@ public class Main extends Application {
                 Block block = new Block((x + y) % 2 == 0, x, y);
                 Blocks.getChildren().add(block);
                 // setting up pieces
-                pieceGenerator(x, y);
+                block.setPiece(pieceGenerator(x, y));
             }
         }
         return root;
     }
 
-    public void pieceGenerator(int x, int y) {
+    public Piece pieceGenerator(int x, int y) {
+        Piece piece = null;
         if (y == 1 || y == 6) {
-            Piece piece = new Pond(x, y);
+            piece = Pond.makePond(x, y);
             Pieces.getChildren().add(piece);
         } else if (y == 0 || y == 7) {
-            Piece piece = null;
             switch (x) {
                 case 0:
                 case 7:
-                    piece = new Castle(x, y);
+                    piece = Castle.makeCastle(x, y);
                     break;
                 case 1:
                 case 6:
-                    piece = new Knight(x, y);
+                    piece = Knight.makeKnight(x, y);
                     break;
                 case 2:
                 case 5:
-                    piece = new Bishop(x, y);
+                    piece = Bishop.makeBishop(x, y);
                     break;
                 case 3:
-                    piece = new Queen(x, y);
+                    piece = Queen.makeQueen(x, y);
                     break;
                 case 4:
-                    piece = new King(x, y);
+                    piece = King.makeKing(x, y);
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + x);
             }
             Pieces.getChildren().add(piece);
         }
+        return piece;
     }
 
     @Override

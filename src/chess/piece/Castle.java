@@ -1,23 +1,20 @@
 package chess.piece;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import static chess.main.Main.*;
-
 public class Castle extends Piece {
 
-    public Castle(int x, int y) {
-        super(x, y);
-        setType(PieceType.CASTLE);
-        Image castle = null;
-        if (isWhite()) {
-            castle = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rlt60.png");
+    public static Castle makeCastle(int x, int y) {
+        Castle castle = null;
+        if (y > 2) {
+            castle = new Castle("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rlt60.png");
         } else {
-            castle = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rdt60.png");
+            castle = new Castle("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rdt60.png");
         }
-        ImageView imageView = new ImageView(castle);
-        this.getChildren().add(imageView);
+        return castle;
+    }
+
+    public Castle(String url) {
+        super(url);
+        setType(PieceType.CASTLE);
     }
 
 //    public boolean move(int x, int y){

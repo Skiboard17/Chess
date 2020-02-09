@@ -3,45 +3,30 @@ package chess.board;
 import chess.piece.Piece;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import static chess.main.Main.BLOCK_SIZE;
 import static chess.main.Main.Blocks;
 
-public class Block extends Rectangle {
-    private boolean isLight;
+public class Block extends StackPane {
+    private Rectangle tile;
     private Piece piece;
     private boolean borderOn;
 
     public Block(boolean isLight, int x, int y) {
-        this.isLight = isLight;
-        setX(x);
-        setY(y);
-        setWidth(BLOCK_SIZE);
-        setHeight(BLOCK_SIZE);
-        relocate(x * getWidth(), y * getHeight());
+        this.setWidth(BLOCK_SIZE);
+        this.setHeight(BLOCK_SIZE);
+        Rectangle tile = new Rectangle();
+        this.tile = tile;
+        tile.setFill(isLight ? Color.valueOf("#E6CCAB") : Color.valueOf("#9D571B"));
+        tile.setWidth(BLOCK_SIZE);
+        tile.setHeight(BLOCK_SIZE);
+        getChildren().add(tile);
+        this.relocate(x * getWidth(), y * getHeight());
         EventHandler<MouseEvent> eventHandler = e -> changeBorder();
         setOnMouseClicked(eventHandler);
-        setFill(isLight ? Color.valueOf("#E6CCAB") : Color.valueOf("#9D571B"));
-    }
-
-    public int[] getPosition() {
-        return new int[]{(int) getX(), (int) getY()};
-    }
-
-    public boolean isLight() {
-        return isLight;
-    }
-
-    public boolean hasPiece() {
-        return piece == null;
-    }
-
-    public Piece getPiece() {
-        return piece;
     }
 
     public static Block findBlock(int x, int y) {
@@ -49,11 +34,22 @@ public class Block extends Rectangle {
         return (Block) Blocks.getChildren().get(index);
     }
 
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+        if (piece != null) {
+            this.getChildren().add(piece);
+        }
+    }
+
     public void changeBorder() {
         if (borderOn) {
-            this.setStroke(null);
+            this.tile.setStroke(null);
         } else {
-            this.setStroke(Color.BLUE);
+            this.tile.setStroke(Color.BLUE);
         }
         borderOn = !borderOn;
         System.out.println("border");

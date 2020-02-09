@@ -7,16 +7,18 @@ import static chess.main.Main.*;
 
 public class Knight extends Piece {
 
-    public Knight(int x, int y) {
-        super(x, y);
-        setType(PieceType.KNIGHT);
-        Image knight = null;
-        if (isWhite()) {
-            knight = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_nlt60.png");
+    public static Knight makeKnight(int x, int y) {
+        Knight knight = null;
+        if (y > 2) {
+            knight = new Knight("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_nlt60.png");
         } else {
-            knight = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_ndt60.png");
+            knight = new Knight("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_ndt60.png");
         }
-        ImageView imageView = new ImageView(knight);
-        this.getChildren().add(imageView);
+        return knight;
+    }
+
+    public Knight(String url) {
+        super(url);
+        setType(PieceType.KNIGHT);
     }
 }

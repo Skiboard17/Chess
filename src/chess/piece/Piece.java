@@ -1,16 +1,18 @@
 package chess.piece;
 
 import chess.board.Block;
-import javafx.geometry.Pos;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.ImageView;
 
 import static chess.board.Block.findBlock;
-import static chess.main.Main.BLOCK_SIZE;
 
-public abstract class Piece extends StackPane {
+public abstract class Piece extends ImageView {
     private PieceType type;
-    private final boolean isWhite;
+    private boolean isWhite;
     private Block position;
+
+    public Piece(String url) {
+        super(url);
+    }
 
     public PieceType getType() {
         return type;
@@ -18,13 +20,6 @@ public abstract class Piece extends StackPane {
 
     public void setType(PieceType type) {
         this.type = type;
-    }
-
-    public Piece(int x, int y) {
-        setPrefSize(BLOCK_SIZE, BLOCK_SIZE);
-        setAlignment(Pos.CENTER);
-        relocate(x * BLOCK_SIZE, y * BLOCK_SIZE);
-        isWhite = y > 2;
     }
 
     public boolean isWhite() {
