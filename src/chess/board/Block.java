@@ -15,7 +15,6 @@ public class Block extends Rectangle {
     private boolean isLight;
     private Piece piece;
     private boolean borderOn;
-    private EventHandler<MouseEvent> eventHandler = e -> changeBorder();
 
     public Block(boolean isLight, int x, int y) {
         this.isLight = isLight;
@@ -24,6 +23,8 @@ public class Block extends Rectangle {
         setWidth(BLOCK_SIZE);
         setHeight(BLOCK_SIZE);
         relocate(x * getWidth(), y * getHeight());
+        EventHandler<MouseEvent> eventHandler = e -> changeBorder();
+        setOnMouseClicked(eventHandler);
         setFill(isLight ? Color.valueOf("#E6CCAB") : Color.valueOf("#9D571B"));
     }
 
@@ -50,10 +51,11 @@ public class Block extends Rectangle {
 
     public void changeBorder() {
         if (borderOn) {
-            this.setStroke(Color.BLUE);
+            this.setStroke(null);
         } else {
-            this.setStroke(Color.WHITE);
+            this.setStroke(Color.BLUE);
         }
         borderOn = !borderOn;
+        System.out.println("border");
     }
 }

@@ -18,6 +18,5 @@ public class Pond extends Piece {
         }
         ImageView imageView = new ImageView(pond);
         this.getChildren().add(imageView);
-        System.out.println(imageView.getImage());
     }
 }
