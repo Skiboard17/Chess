@@ -1,23 +1,16 @@
-package chess.main;
+package chess.gameplay;
 
 import chess.board.Block;
 import chess.piece.*;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import static chess.Constants.*;
 
-public class Main extends Application {
-
-    public static final int BLOCK_SIZE = 80;
-    public static final int HEIGHT = 8;
-    public static final int WIDTH = 8;
-
-    public static Group Blocks = new Group();
-    public static Group Pieces = new Group();
+public class Setup extends Application {
 
     private Parent setup() {
         Pane root = new Pane();
@@ -30,7 +23,7 @@ public class Main extends Application {
                 Block block = new Block((x + y) % 2 == 0, x, y);
                 Blocks.getChildren().add(block);
                 // setting up pieces
-                block.setPiece(pieceGenerator(x, y));
+                block.setPiece(pieceGenerator(x + 1, 8 - y));
             }
         }
         return root;
@@ -38,27 +31,27 @@ public class Main extends Application {
 
     public Piece pieceGenerator(int x, int y) {
         Piece piece = null;
-        if (y == 1 || y == 6) {
+        if (y == 2 || y == 7) {
             piece = Pond.makePond(x, y);
             Pieces.getChildren().add(piece);
-        } else if (y == 0 || y == 7) {
+        } else if (y == 1 || y == 8) {
             switch (x) {
-                case 0:
-                case 7:
+                case 1:
+                case 8:
                     piece = Castle.makeCastle(x, y);
                     break;
-                case 1:
-                case 6:
+                case 2:
+                case 7:
                     piece = Knight.makeKnight(x, y);
                     break;
-                case 2:
-                case 5:
+                case 3:
+                case 6:
                     piece = Bishop.makeBishop(x, y);
                     break;
-                case 3:
+                case 4:
                     piece = Queen.makeQueen(x, y);
                     break;
-                case 4:
+                case 5:
                     piece = King.makeKing(x, y);
                     break;
                 default:
@@ -76,7 +69,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);
