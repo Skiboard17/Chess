@@ -1,6 +1,8 @@
 package chess.piece;
 
 import chess.board.Block;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 
 import static chess.Util.*;
@@ -23,21 +25,41 @@ public class King extends Piece {
 
     private boolean checked() {
         // TODO
-        return false;
+        Group opponents = isWhite() ? BlackPieces : WhitePieces;
+        for (Node node : opponents.getChildren()) {
+            Piece piece = (Piece) node;
+            if (piece.canMove(this.getBlock())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean checked(Block end) {
         // TODO
+        Group opponents = isWhite() ? BlackPieces : WhitePieces;
+        for (Node node : opponents.getChildren()) {
+            Piece piece = (Piece) node;
+            if (piece.canReach(end)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
-    public boolean canMove(Block start, Block end) {
+    public boolean canMove(Block end) {
         if (this.hasSameColor(end)) {
             return false;
         }
-        int startX = start.getPosition()[0];
-        int startY = start.getPosition()[1];
+        return canReach(end);
+
+    }
+
+    @Override
+    public boolean canReach(Block end) {
+        int startX = this.getBlock().getPosition()[0];
+        int startY = this.getBlock().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
         if (Math.abs(startX - endX) <= 1 && Math.abs(startY - endY) <= 1 && !checked(end)) {

@@ -25,8 +25,14 @@ public abstract class Piece extends ImageView implements Clickable {
         translate();
         if (isWhite) {
             WhitePieces.getChildren().add(this);
+            if (this.type == PieceType.KING) {
+                whiteKing = this;
+            }
         } else {
             BlackPieces.getChildren().add(this);
+            if (this.type == PieceType.KING) {
+                blackKing = this;
+            }
         }
         EventHandler<MouseEvent> eventHandler = e -> click();
         setOnMouseClicked(eventHandler);
@@ -51,7 +57,7 @@ public abstract class Piece extends ImageView implements Clickable {
     public static void movePiece(Block start, Block end) {
         Piece piece = start.getPiece();
         // move successfully
-        if (piece != null && piece.canMove(start, end)) {
+        if (piece != null && piece.canMove(end)) {
             piece.position = end;
             piece.translate();
             start.deselect();
@@ -85,13 +91,18 @@ public abstract class Piece extends ImageView implements Clickable {
         return isWhite;
     }
 
-    public abstract boolean canMove(Block start, Block end);
+    public abstract boolean canMove(Block end);
 
-    // check if the intended move has the same color
+    public abstract boolean canReach(Block end);
+
     public boolean hasSameColor(Block end) {
         if (end.getPiece() == null) {
             return false;
         }
         return end.getPiece().isWhite() == this.isWhite();
+    }
+
+    public Block getBlock() {
+        return position;
     }
 }

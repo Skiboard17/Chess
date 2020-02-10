@@ -23,8 +23,16 @@ public class Queen extends Piece {
     }
 
     @Override
-    public boolean canMove(Block start, Block end) {
-        if (Castle.CastleMoveCheck(start, end) || Bishop.BishopMoveCheck(start, end)) {
+    public boolean canMove(Block end) {
+        if (Castle.CastleMoveCheck(this.getBlock(), end) || Bishop.BishopMoveCheck(this.getBlock(), end)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canReach(Block end) {
+        if (Castle.CastleReachCheck(this.getBlock(), end) || Bishop.BishopReachCheck(this.getBlock(), end)) {
             return true;
         }
         return false;

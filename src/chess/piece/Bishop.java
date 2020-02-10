@@ -25,14 +25,23 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public boolean canMove(Block start, Block end) {
-        return BishopMoveCheck(start, end);
+    public boolean canMove(Block end) {
+        return BishopMoveCheck(this.getBlock(), end);
+    }
+
+    @Override
+    public boolean canReach(Block end) {
+        return BishopReachCheck(this.getBlock(), end);
     }
 
     public static boolean BishopMoveCheck(Block start, Block end) {
         if (start.getPiece().hasSameColor(end)) {
             return false;
         }
+        return BishopReachCheck(start, end);
+    }
+
+    public static boolean BishopReachCheck(Block start, Block end) {
         int startX = start.getPosition()[0];
         int startY = start.getPosition()[1];
         int endX = end.getPosition()[0];

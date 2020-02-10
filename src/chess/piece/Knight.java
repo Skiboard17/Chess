@@ -23,17 +23,22 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean canMove(Block start, Block end) {
+    public boolean canMove(Block end) {
         if (this.hasSameColor(end)) {
             return false;
         }
-        int startX = start.getPosition()[0];
-        int startY = start.getPosition()[1];
+        int startX = this.getBlock().getPosition()[0];
+        int startY = this.getBlock().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
         if (Math.abs(startX - endX) == 2 && Math.abs(startY - endY) == 1 || Math.abs(startX - endX) == 1 && Math.abs(startY - endY) == 2) {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean canReach(Block end) {
+        return canMove(end);
     }
 }

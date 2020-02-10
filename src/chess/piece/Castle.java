@@ -23,16 +23,28 @@ public class Castle extends Piece {
     }
 
     @Override
-    public boolean canMove(Block start, Block end) {
-        return CastleMoveCheck(start, end);
+    public boolean canMove(Block end) {
+        if (this.hasSameColor(end)) {
+            return false;
+        }
+        return this.canReach(end);
+    }
+
+    @Override
+    public boolean canReach(Block end) {
+        return CastleReachCheck(this.getBlock(), end);
     }
 
     public static boolean CastleMoveCheck(Block start, Block end) {
         if (start.getPiece().hasSameColor(end)) {
             return false;
         }
-        int startX = start.getPosition()[0];
-        int startY = start.getPosition()[1];
+        return CastleReachCheck(start, end);
+    }
+
+    public static boolean CastleReachCheck(Block start, Block end) {
+        int startX = start.getPiece().getBlock().getPosition()[0];
+        int startY = start.getPiece().getBlock().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
         if (startX == endX || startY == endY) {

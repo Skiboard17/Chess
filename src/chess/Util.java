@@ -1,6 +1,6 @@
 package chess;
 
-import chess.gameplay.Game;
+import chess.piece.Piece;
 import javafx.scene.Group;
 
 public class Util {
@@ -11,7 +11,9 @@ public class Util {
     public static Group WhitePieces = new Group();
     public static Group BlackPieces = new Group();
     public static Group Blocks = new Group();
-    public static Game moving = new Game();
+    public static Piece whiteKing;
+    public static Piece blackKing;
+
 
     public static int[] convert(int x, int y, boolean comp) {
         if (comp) {
