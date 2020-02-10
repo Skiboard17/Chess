@@ -26,7 +26,7 @@ public class King extends Piece {
     }
 
     // check if the king is checked after a piece moves to pos.
-    public boolean checked(Block pos) {
+    public boolean checked(Block pos, Block kingPos) {
         // TODO
         Group opponents = isWhite() ? BlackPieces : WhitePieces;
         Piece excluded = null;
@@ -36,7 +36,7 @@ public class King extends Piece {
         }
         for (Node node : opponents.getChildren()) {
             Piece piece = (Piece) node;
-            if (piece.canReach(this.getBlock())) {
+            if (piece.canReach(kingPos)) {
                 return true;
             }
         }
@@ -46,17 +46,35 @@ public class King extends Piece {
         return false;
     }
 
-    // check if the king is checked after moving to end
-    private boolean moveChecked(Block end) {
-        // TODO
+    public boolean haveMove(){
+        // TODO: think about ways of implementing it
+        // Might be better if implement go() dodge().
         Group opponents = isWhite() ? BlackPieces : WhitePieces;
+        Group allies = isWhite() ? WhitePieces : BlackPieces;
         for (Node node : opponents.getChildren()) {
             Piece piece = (Piece) node;
-            if (piece.canReach(end)) {
-                return true;
+            if (piece.canReach(this.getPosition()) && !this.dodge())) {
+                // all the block between the attacker and the position of the attacker
+                if (king.go(allies, piece.getPosition())){
+                    return true;
+                }
             }
         }
         return false;
+    }
+
+    private boolean go(Group allies, Block end){
+        for (Node node : allies.getChildren()){
+            Piece piece = (Piece) node;
+            if (piece.canMove(end)){
+                return true;
+            }
+        }        
+        return false;
+    }
+
+    private boolean toBlock(){
+        
     }
 
     @Override
@@ -69,12 +87,13 @@ public class King extends Piece {
     }
 
     @Override
+    // only checks the range of the king (not checking if being checked)
     public boolean canReach(Block end) {
         int startX = this.getBlock().getPosition()[0];
         int startY = this.getBlock().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
-        if (Math.abs(startX - endX) <= 1 && Math.abs(startY - endY) <= 1 && !moveChecked(end)) {
+        if (Math.abs(startX - endX) <= 1 && Math.abs(startY - endY) <= 1) {
             return true;
         }
         return false;

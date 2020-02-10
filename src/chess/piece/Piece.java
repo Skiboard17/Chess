@@ -58,27 +58,39 @@ public abstract class Piece extends ImageView implements Clickable {
         King king = (King) (start.getPiece().isWhite ? whiteKing : blackKing);
         // move successfully
         // TODO: fix the king's move
-        if (piece.canMove(end) && (!king.checked(end))) {
-            piece.position = end;
-            piece.translate();
-            start.deselect();
-            start.setPiece(null);
-            if (end.getPiece() != null) {
-                if (end.getPiece().isWhite) {
-                    WhitePieces.getChildren().remove(end.getPiece());
-                } else {
-                    BlackPieces.getChildren().remove(end.getPiece());
-                }
+        // TODO: check the functionality of king's move
+        if (piece.type != PieceType.KING){
+            if (piece.canMove(end) && !king.checked(end, this.getPosition()))) {
+                movePieceHelper(start, end);
+            } else {
+                start.deselect();
+                end.deselect();
             }
-            end.deselect();
-            end.setPiece(piece);
-            start.restoreColor();
-            end.restoreColor();
-            Turn.isWhiteTurn = !Turn.isWhiteTurn;
         } else {
-            start.deselect();
-            end.deselect();
+            if (!king.checked(end, end)){
+                movePieceHelper(start, end);
+            }
         }
+    }
+
+    public static void movePieceHelper(Block start, Block end){
+        Piece piece = start.getPiece();
+        piece.position = end;
+        piece.translate();
+        start.deselect();
+        start.setPiece(null);
+        if (end.getPiece() != null) {
+            if (end.getPiece().isWhite) {
+                WhitePieces.getChildren().remove(end.getPiece());
+            } else {
+                BlackPieces.getChildren().remove(end.getPiece());
+            }
+        }
+        end.deselect();
+        end.setPiece(piece);
+        start.restoreColor();
+        end.restoreColor();
+        Turn.isWhiteTurn = !Turn.isWhiteTurn;
     }
 
     public void setSelected(boolean selected) {
