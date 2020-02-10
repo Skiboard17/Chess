@@ -1,27 +1,34 @@
 package chess.piece;
 
+import javafx.scene.image.Image;
 import chess.board.Block;
+
+import static chess.Util.*;
 
 public class Castle extends Piece {
 
     public static Castle makeCastle(int x, int y) {
         Castle castle = null;
         if (y < 2) {
-            castle = new Castle("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rlt60.png", true);
+            castle = new Castle(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rlt60.png"), true, Block.findBlock(x, y));
         } else {
-            castle = new Castle("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rdt60.png", false);
+            castle = new Castle(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rdt60.png"), false, Block.findBlock(x, y));
         }
         return castle;
     }
 
-    public Castle(String url, boolean isWhite) {
-        super(url, isWhite);
+    public Castle(Image url, boolean isWhite, Block position) {
+        super(url, isWhite, position);
         setType(PieceType.CASTLE);
     }
 
     @Override
     public boolean canMove(Block start, Block end) {
-        if (this.hasSameColor(end)) {
+        return CastleMoveCheck(start, end);
+    }
+
+    public static boolean CastleMoveCheck(Block start, Block end) {
+        if (start.getPiece().hasSameColor(end)) {
             return false;
         }
         int startX = start.getPosition()[0];

@@ -1,36 +1,31 @@
 package chess.board;
 
+import chess.gameplay.Clickable;
 import chess.gameplay.Game;
 import chess.piece.Piece;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import static chess.Constants.*;
+import static chess.Util.*;
 
-public class Block extends StackPane {
-    private Rectangle tile;
+public class Block extends Rectangle implements Clickable {
     private Piece piece;
     private boolean isLight;
-    private boolean selected;
 
     public Block(boolean isLight, int x, int y) {
         this.isLight = isLight;
         this.setWidth(BLOCK_SIZE);
         this.setHeight(BLOCK_SIZE);
-        Rectangle tile = new Rectangle();
-        this.tile = tile;
-        tile.setFill(isLight ? Color.valueOf("#E6CCAB") : Color.valueOf("#9D571B"));
-        tile.setWidth(BLOCK_SIZE);
-        tile.setHeight(BLOCK_SIZE);
-        tile.setX(x + 1);
-        tile.setY(8 - y);
-        getChildren().add(tile);
+        this.setFill(isLight ? Color.valueOf("#E6CCAB") : Color.valueOf("#9D571B"));
+        this.setWidth(BLOCK_SIZE);
+        this.setHeight(BLOCK_SIZE);
+        this.setX(x + 1);
+        this.setY(8 - y);
         this.relocate(x * getWidth(), y * getHeight());
-        EventHandler<MouseEvent> eventHandler = e -> click();
-        setOnMouseClicked(eventHandler);
+        EventHandler<MouseEvent> eventEventHandler = e -> click();
+        this.setOnMouseClicked(eventEventHandler);
     }
 
     public static Block findBlock(int x, int y) {
@@ -44,34 +39,21 @@ public class Block extends StackPane {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
-        if (piece != null) {
-            if (this.getChildren().size() == 2) {
-                this.getChildren().set(1, piece);
-                return;
-            }
-            this.getChildren().add(piece);
-        }
     }
 
     public int[] getPosition() {
-        return new int[]{(int) tile.getX(), (int) tile.getY()};
+        return new int[]{(int) this.getX(), (int) this.getY()};
     }
 
-    public void click() {
-        // deselect if selected
-        if (selected) {
-            deselect();
-            return;
-        }
-        // select for the first time
-        tile.setFill(Color.LIGHTBLUE);
-        selected = true;
-        Game.trackBlock(this);
+    public boolean isLight() {
+        return isLight;
     }
 
     public void deselect() {
-        selected = false;
-        restoreColor();
+        if (this.getPiece() != null) {
+            this.getPiece().setSelected(false);
+        }
+        this.restoreColor();
         if (Game.start == this) {
             Game.start = null;
         } else if (Game.end == this) {
@@ -80,8 +62,15 @@ public class Block extends StackPane {
     }
 
     public void restoreColor() {
-        tile.setFill(isLight ? Color.valueOf("#E6CCAB") : Color.valueOf("#9D571B"));
+        this.setFill(this.isLight() ? Color.valueOf("#E6CCAB") : Color.valueOf("#9D571B"));
     }
 
-
+    @Override
+    public void click() {
+        if (this.getPiece() != null) {
+            this.getPiece().click();
+        } else if (Game.start != null) {
+            Game.trackMove(this);
+        }
+    }
 }

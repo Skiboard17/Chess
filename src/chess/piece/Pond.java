@@ -1,21 +1,24 @@
 package chess.piece;
 
+import javafx.scene.image.Image;
 import chess.board.Block;
+
+import static chess.Util.*;
 
 public class Pond extends Piece {
 
     public static Pond makePond(int x, int y) {
         Pond pond = null;
         if (y <= 2) {
-            pond = new Pond("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_plt60.png", true);
+            pond = new Pond(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_plt60.png"), true, Block.findBlock(x, y));
         } else {
-            pond = new Pond("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_pdt60.png", false);
+            pond = new Pond(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_pdt60.png"), false, Block.findBlock(x, y));
         }
         return pond;
     }
 
-    public Pond(String url, boolean isWhite) {
-        super(url, isWhite);
+    public Pond(Image url, boolean isWhite, Block position) {
+        super(url, isWhite, position);
         setType(PieceType.POND);
     }
 

@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import static chess.Constants.*;
+import static chess.Util.*;
 
 public class Setup extends Application {
 
@@ -16,14 +16,17 @@ public class Setup extends Application {
         Pane root = new Pane();
         root.setPrefSize(WIDTH * BLOCK_SIZE, HEIGHT * BLOCK_SIZE);
         root.getChildren().add(Blocks);
-        root.getChildren().add(Pieces);
+        root.getChildren().add(WhitePieces);
+        root.getChildren().add(BlackPieces);
         for (int y = 0; y < WIDTH; y++) {
             for (int x = 0; x < HEIGHT; x++) {
                 // setting up boards
                 Block block = new Block((x + y) % 2 == 0, x, y);
                 Blocks.getChildren().add(block);
                 // setting up pieces
-                block.setPiece(pieceGenerator(x + 1, 8 - y));
+                int[] coordinate = convert(x, y, true);
+                Piece piece = pieceGenerator(coordinate[0], coordinate[1]);
+                block.setPiece(piece);
             }
         }
         return root;
@@ -33,7 +36,6 @@ public class Setup extends Application {
         Piece piece = null;
         if (y == 2 || y == 7) {
             piece = Pond.makePond(x, y);
-            Pieces.getChildren().add(piece);
         } else if (y == 1 || y == 8) {
             switch (x) {
                 case 1:
@@ -57,7 +59,6 @@ public class Setup extends Application {
                 default:
                     throw new IllegalStateException("Unexpected value: " + x);
             }
-            Pieces.getChildren().add(piece);
         }
         return piece;
     }
@@ -67,6 +68,7 @@ public class Setup extends Application {
         Scene scene = new Scene(setup());
         primaryStage.setTitle("Chess!");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
