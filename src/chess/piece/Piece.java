@@ -1,6 +1,7 @@
 package chess.piece;
 
-import chess.Util;
+import chess.gameplay.Turn;
+import chess.util.Util;
 import chess.board.Block;
 import chess.gameplay.Clickable;
 import chess.gameplay.Game;
@@ -10,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-import static chess.Util.*;
+import static chess.util.Util.*;
 
 public abstract class Piece extends ImageView implements Clickable {
     private PieceType type;
@@ -25,21 +26,19 @@ public abstract class Piece extends ImageView implements Clickable {
         translate();
         if (isWhite) {
             WhitePieces.getChildren().add(this);
-            if (this.type == PieceType.KING) {
-                whiteKing = this;
-            }
         } else {
             BlackPieces.getChildren().add(this);
-            if (this.type == PieceType.KING) {
-                blackKing = this;
-            }
         }
         EventHandler<MouseEvent> eventHandler = e -> click();
         setOnMouseClicked(eventHandler);
     }
 
+
     public void click() {
         // deselect if selected
+        if (Game.start == null && Turn.isWhiteTurn != this.isWhite) {
+            return;
+        }
         if (selected) {
             this.position.deselect();
             return;
@@ -56,8 +55,10 @@ public abstract class Piece extends ImageView implements Clickable {
 
     public static void movePiece(Block start, Block end) {
         Piece piece = start.getPiece();
+        King king = (King) (start.getPiece().isWhite ? whiteKing : blackKing);
         // move successfully
-        if (piece != null && piece.canMove(end)) {
+        // TODO: fix the king's move
+        if (piece.canMove(end) && (!king.checked(end))) {
             piece.position = end;
             piece.translate();
             start.deselect();
@@ -73,6 +74,7 @@ public abstract class Piece extends ImageView implements Clickable {
             end.setPiece(piece);
             start.restoreColor();
             end.restoreColor();
+            Turn.isWhiteTurn = !Turn.isWhiteTurn;
         } else {
             start.deselect();
             end.deselect();

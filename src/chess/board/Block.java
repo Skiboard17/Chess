@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import static chess.Util.*;
+import static chess.util.Util.*;
 
 public class Block extends Rectangle implements Clickable {
     private Piece piece;

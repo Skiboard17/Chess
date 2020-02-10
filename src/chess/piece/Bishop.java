@@ -3,8 +3,6 @@ package chess.piece;
 import chess.board.Block;
 import javafx.scene.image.Image;
 
-import static chess.Util.*;
-
 public class Bishop extends Piece {
 
     public static Bishop makeBishop(int x, int y) {

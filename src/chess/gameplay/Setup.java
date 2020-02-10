@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import static chess.Util.*;
+import static chess.util.Util.*;
 
 public class Setup extends Application {
 

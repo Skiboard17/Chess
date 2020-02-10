@@ -1,4 +1,4 @@
-package chess;
+package chess.util;
 
 import chess.piece.Piece;
 import javafx.scene.Group;

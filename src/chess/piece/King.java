@@ -5,15 +5,17 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 
-import static chess.Util.*;
+import static chess.util.Util.*;
 
 public class King extends Piece {
     public static King makeKing(int x, int y) {
         King king = null;
         if (y < 2) {
             king = new King(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_klt60.png"), true, Block.findBlock(x, y));
+            whiteKing = king;
         } else {
             king = new King(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_kdt60.png"), false, Block.findBlock(x, y));
+            blackKing = king;
         }
         return king;
     }
@@ -23,19 +25,29 @@ public class King extends Piece {
         setType(PieceType.KING);
     }
 
-    private boolean checked() {
+    // check if the king is checked after a piece moves to pos.
+    public boolean checked(Block pos) {
         // TODO
         Group opponents = isWhite() ? BlackPieces : WhitePieces;
+        Piece excluded = null;
+        if (pos.getPiece() != null) {
+            excluded = pos.getPiece();
+            opponents.getChildren().remove(pos.getPiece());
+        }
         for (Node node : opponents.getChildren()) {
             Piece piece = (Piece) node;
-            if (piece.canMove(this.getBlock())) {
-                return false;
+            if (piece.canReach(this.getBlock())) {
+                return true;
             }
         }
-        return true;
+        if (excluded != null) {
+            opponents.getChildren().add(excluded);
+        }
+        return false;
     }
 
-    private boolean checked(Block end) {
+    // check if the king is checked after moving to end
+    private boolean moveChecked(Block end) {
         // TODO
         Group opponents = isWhite() ? BlackPieces : WhitePieces;
         for (Node node : opponents.getChildren()) {
@@ -62,7 +74,7 @@ public class King extends Piece {
         int startY = this.getBlock().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
-        if (Math.abs(startX - endX) <= 1 && Math.abs(startY - endY) <= 1 && !checked(end)) {
+        if (Math.abs(startX - endX) <= 1 && Math.abs(startY - endY) <= 1 && !moveChecked(end)) {
             return true;
         }
         return false;

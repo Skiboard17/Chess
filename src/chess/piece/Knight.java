@@ -3,8 +3,6 @@ package chess.piece;
 import chess.board.Block;
 import javafx.scene.image.Image;
 
-import static chess.Util.*;
-
 public class Knight extends Piece {
 
     public static Knight makeKnight(int x, int y) {
