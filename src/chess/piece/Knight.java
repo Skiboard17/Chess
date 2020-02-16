@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class Knight extends Piece {
 
     public static Knight makeKnight(int x, int y) {
-        Knight knight = null;
+        Knight knight;
         if (y < 2) {
             knight = new Knight(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_nlt60.png"), true, Block.findBlock(x, y));
         } else {
@@ -17,7 +17,6 @@ public class Knight extends Piece {
 
     public Knight(Image url, boolean isWhite, Block position) {
         super(url, isWhite, position);
-        setType(PieceType.KNIGHT);
     }
 
     @Override
@@ -29,10 +28,7 @@ public class Knight extends Piece {
         int startY = this.getBlock().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
-        if (Math.abs(startX - endX) == 2 && Math.abs(startY - endY) == 1 || Math.abs(startX - endX) == 1 && Math.abs(startY - endY) == 2) {
-            return true;
-        }
-        return false;
+        return Math.abs(startX - endX) == 2 && Math.abs(startY - endY) == 1 || Math.abs(startX - endX) == 1 && Math.abs(startY - endY) == 2;
     }
 
     @Override

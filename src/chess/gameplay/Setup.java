@@ -64,7 +64,7 @@ public class Setup extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Scene scene = new Scene(setup());
         primaryStage.setTitle("Chess!");
         primaryStage.setScene(scene);

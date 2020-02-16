@@ -6,7 +6,7 @@ import chess.board.Block;
 public class Castle extends Piece {
 
     public static Castle makeCastle(int x, int y) {
-        Castle castle = null;
+        Castle castle;
         if (y < 2) {
             castle = new Castle(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_rlt60.png"), true, Block.findBlock(x, y));
         } else {
@@ -17,7 +17,6 @@ public class Castle extends Piece {
 
     public Castle(Image url, boolean isWhite, Block position) {
         super(url, isWhite, position);
-        setType(PieceType.CASTLE);
     }
 
     @Override

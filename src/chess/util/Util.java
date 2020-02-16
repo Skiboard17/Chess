@@ -21,8 +21,6 @@ public class Util {
     public static Piece blackKing;
     public static Piece ignored;
     private static Group ignoreGroup;
-    public static Piece whiteChecker;
-    public static Piece blackChecker;
 
     public static int[] convert(int x, int y, boolean comp) {
         if (comp) {

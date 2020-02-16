@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class Bishop extends Piece {
 
     public static Bishop makeBishop(int x, int y) {
-        Bishop bishop = null;
+        Bishop bishop;
         if (y < 2) {
             Image image = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_blt60.png");
             bishop = new Bishop(image, true, Block.findBlock(x, y));
@@ -19,7 +19,6 @@ public class Bishop extends Piece {
 
     public Bishop(Image url, boolean isWhite, Block position) {
         super(url, isWhite, position);
-        setType(PieceType.BISHOP);
     }
 
     @Override

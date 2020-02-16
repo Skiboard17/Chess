@@ -3,7 +3,6 @@ package chess.board;
 import chess.gameplay.Clickable;
 import chess.gameplay.Game;
 import chess.piece.Piece;
-import chess.util.Util;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;

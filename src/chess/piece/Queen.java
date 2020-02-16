@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class Queen extends Piece {
 
     public static Queen makeQueen(int x, int y) {
-        Queen queen = null;
+        Queen queen;
         if (y < 2) {
             queen = new Queen(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_qlt60.png"), true, Block.findBlock(x, y));
         } else {
@@ -17,23 +17,16 @@ public class Queen extends Piece {
 
     public Queen(Image url, boolean isWhite, Block position) {
         super(url, isWhite, position);
-        setType(PieceType.QUEEN);
     }
 
     @Override
     public boolean canMove(Block end) {
-        if (Castle.CastleMoveCheck(this.getBlock(), end) || Bishop.BishopMoveCheck(this.getBlock(), end)) {
-            return true;
-        }
-        return false;
+        return Castle.CastleMoveCheck(this.getBlock(), end) || Bishop.BishopMoveCheck(this.getBlock(), end);
     }
 
     @Override
     public boolean canReach(Block end) {
-        if (Castle.CastleReachCheck(this.getBlock(), end) || Bishop.BishopReachCheck(this.getBlock(), end)) {
-            return true;
-        }
-        return false;
+        return Castle.CastleReachCheck(this.getBlock(), end) || Bishop.BishopReachCheck(this.getBlock(), end);
     }
 
 }

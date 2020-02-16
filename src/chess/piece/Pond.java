@@ -6,7 +6,7 @@ import chess.board.Block;
 public class Pond extends Piece {
 
     public static Pond makePond(int x, int y) {
-        Pond pond = null;
+        Pond pond;
         if (y <= 2) {
             pond = new Pond(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_plt60.png"), true, Block.findBlock(x, y));
         } else {
@@ -17,7 +17,6 @@ public class Pond extends Piece {
 
     public Pond(Image url, boolean isWhite, Block position) {
         super(url, isWhite, position);
-        setType(PieceType.POND);
     }
 
     @Override

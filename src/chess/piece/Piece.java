@@ -15,7 +15,6 @@ import javafx.scene.paint.Color;
 import static chess.util.Util.*;
 
 public abstract class Piece extends ImageView implements Clickable {
-    private PieceType type;
     private final boolean isWhite;
     private Block position;
     private boolean selected;
@@ -56,8 +55,6 @@ public abstract class Piece extends ImageView implements Clickable {
 
     public static void movePiece(Block start, Block end) {
         Piece piece = start.getPiece();
-        King king = (King) (start.getPiece().isWhite ? whiteKing : blackKing);
-        // TODO: shorten the code by checking the king after the move.
         // move successfully
         if (piece.canMove(end)) {
             movePieceHelper(start, end);
@@ -121,9 +118,6 @@ public abstract class Piece extends ImageView implements Clickable {
         this.selected = selected;
     }
 
-    public void setType(PieceType type) {
-        this.type = type;
-    }
 
     public boolean isWhite() {
         return isWhite;
@@ -144,7 +138,4 @@ public abstract class Piece extends ImageView implements Clickable {
         return position;
     }
 
-    public PieceType getType() {
-        return type;
-    }
 }
