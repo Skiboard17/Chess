@@ -3,6 +3,7 @@ package chess.board;
 import chess.gameplay.Clickable;
 import chess.gameplay.Game;
 import chess.piece.Piece;
+import chess.util.Util;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -59,6 +60,7 @@ public class Block extends Rectangle implements Clickable {
         } else if (Game.end == this) {
             Game.end = null;
         }
+        decolorize();
     }
 
     public void restoreColor() {

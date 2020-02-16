@@ -1,11 +1,12 @@
 package chess.piece;
 
 import chess.gameplay.Turn;
-import chess.util.Util;
+
 import chess.board.Block;
 import chess.gameplay.Clickable;
 import chess.gameplay.Game;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -49,48 +50,71 @@ public abstract class Piece extends ImageView implements Clickable {
     }
 
     public void translate() {
-        int[] coordinate = Util.convert((int) position.getX(), (int) position.getY(), false);
+        int[] coordinate = convert((int) position.getX(), (int) position.getY(), false);
         relocate(coordinate[0] * BLOCK_SIZE + 10, coordinate[1] * BLOCK_SIZE + 10);
     }
 
     public static void movePiece(Block start, Block end) {
         Piece piece = start.getPiece();
         King king = (King) (start.getPiece().isWhite ? whiteKing : blackKing);
+        // TODO: shorten the code by checking the king after the move.
         // move successfully
-        // TODO: fix the king's move
-        // TODO: check the functionality of king's move
-        if (piece.type != PieceType.KING){
-            if (piece.canMove(end) && !king.checked(end, this.getPosition()))) {
-                movePieceHelper(start, end);
-            } else {
-                start.deselect();
-                end.deselect();
-            }
-        } else {
-            if (!king.checked(end, end)){
-                movePieceHelper(start, end);
-            }
+        if (piece.canMove(end)) {
+            movePieceHelper(start, end);
         }
+        start.deselect();
+        end.deselect();
     }
 
-    public static void movePieceHelper(Block start, Block end){
-        Piece piece = start.getPiece();
-        piece.position = end;
-        piece.translate();
-        start.deselect();
-        start.setPiece(null);
-        if (end.getPiece() != null) {
-            if (end.getPiece().isWhite) {
-                WhitePieces.getChildren().remove(end.getPiece());
-            } else {
-                BlackPieces.getChildren().remove(end.getPiece());
+    public static void movePieceHelper(Block start, Block end) {
+        Piece startPiece = start.getPiece();
+        Piece endPiece = end.getPiece();
+        boolean isValid = validityHelper(start, end);
+        if (!isValid) {
+            startPiece.position = start;
+            start.setPiece(startPiece);
+            end.setPiece(endPiece);
+            if (endPiece != null) {
+                Group group = endPiece.isWhite ? WhitePieces : BlackPieces;
+                group.getChildren().add(endPiece);
             }
         }
-        end.deselect();
-        end.setPiece(piece);
+        startPiece.translate();
+        Turn.isWhiteTurn = !Turn.isWhiteTurn;
+    }
+
+    public static boolean ValidMove(Block start, Block end) {
+        Piece startPiece = start.getPiece();
+        Piece endPiece = end.getPiece();
+        boolean result = validityHelper(start, end);
+        // restore anyway
+        startPiece.position = start;
+        start.setPiece(startPiece);
+        end.setPiece(endPiece);
+        if (endPiece != null) {
+            Group group = endPiece.isWhite ? WhitePieces : BlackPieces;
+            group.getChildren().add(endPiece);
+        }
+        return result;
+    }
+
+    private static boolean validityHelper(Block start, Block end) {
+        King king = (King) (start.getPiece().isWhite ? whiteKing : blackKing);
+        Piece startPiece = start.getPiece();
+        Piece endPiece = end.getPiece();
+        // start the actual method
+        startPiece.position = end;
+        // pretend it is successful
+        start.setPiece(null);
+        if (endPiece != null) {
+            Group group = endPiece.isWhite ? WhitePieces : BlackPieces;
+            group.getChildren().remove(endPiece);
+        }
+        end.setPiece(startPiece);
         start.restoreColor();
         end.restoreColor();
-        Turn.isWhiteTurn = !Turn.isWhiteTurn;
+        // check if it is a valid move
+        return king.notChecked(null, king.getBlock());
     }
 
     public void setSelected(boolean selected) {
@@ -118,5 +142,9 @@ public abstract class Piece extends ImageView implements Clickable {
 
     public Block getBlock() {
         return position;
+    }
+
+    public PieceType getType() {
+        return type;
     }
 }
