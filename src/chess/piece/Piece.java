@@ -75,6 +75,10 @@ public abstract class Piece extends ImageView implements Clickable {
                 Group group = endPiece.isWhite ? WhitePieces : BlackPieces;
                 group.getChildren().add(endPiece);
             }
+        } else {
+            if (startPiece.getClass().getName() == "King" || startPiece.getClass().getName() == "Castle"){
+                startPiece.setMoved();
+            }
         }
         startPiece.translate();
         Turn.isWhiteTurn = !Turn.isWhiteTurn;

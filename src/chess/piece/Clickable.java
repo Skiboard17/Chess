@@ -1,4 +1,4 @@
-package chess.gameplay;
+package chess.piece;
 
 public interface Clickable {
 

@@ -7,7 +7,8 @@ import javafx.scene.image.Image;
 
 import static chess.util.Util.*;
 
-public class King extends Piece {
+public class King extends Piece implements MoveTracker{
+    private boolean hasMoved;
 
     public static King makeKing(int x, int y) {
         King king;
