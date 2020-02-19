@@ -12,6 +12,7 @@ import static chess.util.Util.*;
 public class Game {
     public static Block start;
     public static Block end;
+    public static Block[] lastMove;
 
     public static void trackMove(Block selected) {
         if (start == null) {

@@ -28,7 +28,8 @@ public class King extends Piece implements MoveTracker{
 
     // check if the king is checked at kingPos after a piece moves to pos.
     // pos is used for checking after eating.
-    public boolean notChecked(Block pos, Block kingPos) {
+    // TODO: check if eating logic is implemented in movePiece()
+    public boolean notChecked(Block kingPos) {
         Group opponents = isWhite() ? BlackPieces : WhitePieces;
         if (pos != null && pos.getPiece() != null) {
             ignore(pos.getPiece(), opponents);
@@ -61,9 +62,16 @@ public class King extends Piece implements MoveTracker{
 
     @Override
     public boolean canMove(Block end) {
-        if (this.hasSameColor(end) || !this.notChecked(end, end)) {
+        Block[] position = this.getBlock().getPosition();
+        if (this.hasSameColor(end) || !this.notChecked(end)) {
             return false;
+        } else if (position[1] == end.getPosition()[1] && Math.abs(position[0] - end.getPosition()[0]) == 2){
+            // TODO: check the functionality and fix the double type
+            int mean = (position[0] + end.getPosition()[0]) / 2;
+            Block between = Block.findBlock(mean, position[1]);
+            return !this.notChecked(between);
         }
+        
         return canReach(end);
     }
 
