@@ -6,7 +6,7 @@ import chess.piece.Piece;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
-import static chess.piece.Piece.ValidMove;
+import static chess.piece.Piece.validMove;
 import static chess.util.Util.*;
 
 public class Game {
@@ -19,7 +19,7 @@ public class Game {
             start = selected;
             for (Node node : Blocks.getChildren()) {
                 Block block = (Block) node;
-                if (start.getPiece().canMove(block) && ValidMove(start, block)) {
+                if (start.getPiece().canMove(block) && validMove(start, block)) {
                     colorize(block);
                 }
             }

@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import static chess.util.Util.*;
 
-public class Setup extends Application {
+public class Main extends Application {
 
     private Parent setup() {
         Pane root = new Pane();

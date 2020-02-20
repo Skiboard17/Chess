@@ -5,6 +5,8 @@ import chess.board.Block;
 
 public class Castle extends Piece {
 
+    private boolean hasMoved;
+
     public static Castle makeCastle(int x, int y) {
         Castle castle;
         if (y < 2) {
@@ -62,5 +64,15 @@ public class Castle extends Piece {
             return true;
         }
         return false;
+    }
+
+    public boolean hasMoved() {
+        return hasMoved;
+    }
+
+    public void setMoved() {
+        if (!hasMoved) {
+            hasMoved = true;
+        }
     }
 }

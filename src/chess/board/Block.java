@@ -1,6 +1,6 @@
 package chess.board;
 
-import chess.gameplay.Clickable;
+import chess.piece.Clickable;
 import chess.gameplay.Game;
 import chess.piece.Piece;
 import javafx.event.EventHandler;

@@ -3,8 +3,10 @@ package chess.piece;
 import chess.gameplay.Turn;
 
 import chess.board.Block;
-import chess.gameplay.Clickable;
+import chess.piece.Clickable;
+
 import static chess.gameplay.Game.*;
+
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -80,9 +82,22 @@ public abstract class Piece extends ImageView implements Clickable {
                 group.getChildren().add(endPiece);
             }
         } else {
-            // TODO: Check functionality with a breakpoint
-            if (startPiece instanceof MoveTracker){
-                startPiece.setMoved();
+            if (startPiece instanceof King) {
+                int[] startPos = start.getPosition();
+                int[] endPos = end.getPosition();
+                if (Math.abs(startPos[0] - endPos[0]) == 2) {
+                    int castleStartX = endPos[0] == 7 ? 8 : 1;
+                    int castleStartY = endPos[1];
+                    Block castleStart = Block.findBlock(castleStartX, castleStartY);
+                    Piece castle = castleStart.getPiece();
+                    int castleEndX = endPos[0] == 7 ? 6 : 4;
+                    Block castleEnd = Block.findBlock(castleEndX, castleStartY);
+                    validityHelper(castleStart, castleEnd);
+                    castle.translate();
+                }
+                ((King) startPiece).setMoved();
+            } else if (startPiece instanceof Castle) {
+                ((Castle) startPiece).setMoved();
             }
             lastMove = new Block[]{start, end};
         }
@@ -91,7 +106,7 @@ public abstract class Piece extends ImageView implements Clickable {
     }
 
     // check if a move is valid by moving, checking, and restoring
-    public static boolean ValidMove(Block start, Block end) {
+    public static boolean validMove(Block start, Block end) {
         Piece startPiece = start.getPiece();
         Piece endPiece = end.getPiece();
         boolean result = validityHelper(start, end);
@@ -108,7 +123,6 @@ public abstract class Piece extends ImageView implements Clickable {
 
     // a helper that moves a piece from start to end
     // Note: it is not restored to the initial state
-    // TODO: implement the castling (doesn't have to be in this method)
     private static boolean validityHelper(Block start, Block end) {
         King king = (King) (start.getPiece().isWhite ? whiteKing : blackKing);
         Piece startPiece = start.getPiece();
