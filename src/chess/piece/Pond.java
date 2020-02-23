@@ -1,5 +1,6 @@
 package chess.piece;
 
+import chess.gameplay.Game;
 import javafx.scene.image.Image;
 import chess.board.Block;
 
@@ -21,6 +22,7 @@ public class Pond extends Piece {
 
     @Override
     public boolean canMove(Block end) {
+        // TODO: implement pass-by pond
         if (this.hasSameColor(end)) {
             return false;
         }
@@ -28,22 +30,38 @@ public class Pond extends Piece {
         int startY = this.getBlock().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
+        // regular forward movement
         if (startX == endX && end.getPiece() == null) {
             if (isWhite() && startY + 1 == endY) {
                 return true;
             } else if (!isWhite() && startY - 1 == endY) {
                 return true;
+                // First move
             } else if (isWhite() && startY == 2 && startY + 2 == endY && Block.findBlock(startX, startY + 1).getPiece() == null) {
                 return true;
             } else if (!isWhite() && startY == 7 && startY - 2 == endY && Block.findBlock(startX, startY - 1).getPiece() == null) {
                 return true;
             }
         }
+        // Eating diagonally
         if (end.getPiece() != null && Math.abs(startX - endX) == 1) {
             if (isWhite() && (startY + 1 == endY)) {
                 return true;
             } else if (!isWhite() && startY - 1 == endY) {
                 return true;
+            }
+        }
+        // En passant check
+        if (Game.lastMove != null) {
+            Piece piece = Game.lastMove[1].getPiece();
+            if (piece instanceof Pond) {
+                int oppositeStartingLine = piece.isWhite() ? 2 : 7;
+                int oppositeEndingLine = piece.isWhite() ? 4 : 5;
+                int offset = piece.isWhite() ? -1 : 1;
+                // check the lines
+                if (Game.lastMove[0].getPosition()[1] == oppositeStartingLine && Game.lastMove[1].getPosition()[1] == oppositeEndingLine) {
+                    return startY == oppositeEndingLine && endX == Game.lastMove[0].getPosition()[0] && startY + offset == endY;
+                }
             }
         }
         return false;
@@ -56,11 +74,7 @@ public class Pond extends Piece {
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
         if (Math.abs(startX - endX) == 1) {
-            if (isWhite() && (startY + 1 == endY)) {
-                return true;
-            } else if (!isWhite() && startY - 1 == endY) {
-                return true;
-            }
+            return isWhite() && (startY + 1 == endY) || !isWhite() && startY - 1 == endY;
         }
         return false;
     }

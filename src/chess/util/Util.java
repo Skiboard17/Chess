@@ -38,8 +38,8 @@ public class Util {
         colored = new ArrayList<>();
     }
 
-    public static void colorize(Block block) {
-        block.setFill(Color.LIGHTBLUE);
+    public static void colorize(Block block, Color color) {
+        block.setFill(color);
         colored.add(block);
     }
 

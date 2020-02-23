@@ -36,18 +36,22 @@ public abstract class Piece extends ImageView implements Clickable {
     }
 
 
-    public void click() {
+    public boolean click() {
         // deselect if selected
         if (start == null && Turn.isWhiteTurn != this.isWhite) {
-            return;
+            System.out.println(false);
+            return false;
         }
         if (selected) {
             this.position.deselect();
-            return;
+            System.out.println(false);
+            return false;
         }
         this.position.setFill(Color.LIGHTBLUE);
         selected = true;
         trackMove(this.position);
+        System.out.println(true);
+        return true;
     }
 
 
@@ -98,6 +102,17 @@ public abstract class Piece extends ImageView implements Clickable {
                 ((King) startPiece).setMoved();
             } else if (startPiece instanceof Castle) {
                 ((Castle) startPiece).setMoved();
+            } else if (startPiece instanceof Pond) {
+                int[] startPos = start.getPosition();
+                int[] endPos = end.getPosition();
+                if (Math.abs(startPos[0] - endPos[0]) == 1 && Math.abs(startPos[1] - endPos[1]) == 1
+                        && endPiece == null) {
+                    int offset = startPiece.isWhite ? -1 : 1;
+                    Block block = Block.findBlock(endPos[0], endPos[1] + offset);
+                    Group opponentGroup = startPiece.isWhite ? BlackPieces : WhitePieces;
+                    opponentGroup.getChildren().remove(block.getPiece());
+                    block.setPiece(null);
+                }
             }
             lastMove = new Block[]{start, end};
         }
@@ -145,7 +160,6 @@ public abstract class Piece extends ImageView implements Clickable {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
-
 
     public boolean isWhite() {
         return isWhite;

@@ -20,11 +20,12 @@ public class Game {
             for (Node node : Blocks.getChildren()) {
                 Block block = (Block) node;
                 if (start.getPiece().canMove(block) && validMove(start, block)) {
-                    colorize(block);
+                    colorize(block, Color.LIGHTBLUE);
                 }
             }
         } else if (end == null) {
             end = selected;
+            // FIXME: Turning logic wrong when checking
             Piece.movePiece(start, end);
             King king = (King) (Turn.isWhiteTurn ? whiteKing : blackKing);
             decolorize();

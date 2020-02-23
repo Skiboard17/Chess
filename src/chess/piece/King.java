@@ -77,7 +77,7 @@ public class King extends Piece {
             }
             int mean = (position[0] + end.getPosition()[0]) / 2;
             Block between = Block.findBlock(mean, position[1]);
-            return this.notChecked(between);
+            return between.getPiece() == null && this.notChecked(between);
         }
         return canReach(end);
     }

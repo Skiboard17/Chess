@@ -23,7 +23,8 @@ public class Block extends Rectangle implements Clickable {
         this.setHeight(BLOCK_SIZE);
         this.setX(x + 1);
         this.setY(8 - y);
-        this.relocate(x * getWidth(), y * getHeight());
+        this.setStyle("-fx-stroke: black; -fx-stroke-width: 2;");
+        this.relocate(x * getWidth() + 1, y * getHeight() + 1);
         EventHandler<MouseEvent> eventEventHandler = e -> click();
         this.setOnMouseClicked(eventEventHandler);
     }
@@ -67,11 +68,15 @@ public class Block extends Rectangle implements Clickable {
     }
 
     @Override
-    public void click() {
+    public boolean click() {
         if (this.getPiece() != null) {
-            this.getPiece().click();
+            return this.getPiece().click();
         } else if (Game.start != null) {
             Game.trackMove(this);
+            System.out.println(true);
+            return true;
         }
+        System.out.println(false);
+        return false;
     }
 }

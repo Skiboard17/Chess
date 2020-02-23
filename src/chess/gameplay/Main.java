@@ -8,13 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import static chess.gameplay.MakeMove.script;
+
 import static chess.util.Util.*;
 
 public class Main extends Application {
 
     private Parent setup() {
         Pane root = new Pane();
-        root.setPrefSize(WIDTH * BLOCK_SIZE, HEIGHT * BLOCK_SIZE);
+        root.setPrefSize(WIDTH * BLOCK_SIZE + 1, HEIGHT * BLOCK_SIZE + 1);
         root.getChildren().add(Blocks);
         root.getChildren().add(WhitePieces);
         root.getChildren().add(BlackPieces);
@@ -70,6 +72,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        script();
     }
 
     public static void main(String[] args) {
