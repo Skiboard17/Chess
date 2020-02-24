@@ -26,7 +26,7 @@ public class Game {
             }
         } else if (end == null) {
             end = selected;
-            // FIXME: Turning logic wrong when checking
+            // TODO: fix turning logic (wrong when checking)
             Piece.movePiece(start, end);
             King king = (King) (Turn.isWhiteTurn ? whiteKing : blackKing);
             decolorize();

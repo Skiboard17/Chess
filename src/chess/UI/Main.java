@@ -1,4 +1,4 @@
-package chess.gameplay;
+package chess.UI;
 
 import chess.board.Block;
 import chess.piece.*;

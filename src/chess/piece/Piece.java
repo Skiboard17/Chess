@@ -118,9 +118,10 @@ public abstract class Piece extends ImageView implements Clickable {
                 }
             }
             lastMove = new Block[]{start, end};
+            // TODO: check the functionality
+            startPiece.translate();
+            Turn.isWhiteTurn = !Turn.isWhiteTurn;
         }
-        startPiece.translate();
-        Turn.isWhiteTurn = !Turn.isWhiteTurn;
     }
 
     // check if a move is valid by moving, checking, and restoring
@@ -182,5 +183,4 @@ public abstract class Piece extends ImageView implements Clickable {
     public Block getBlock() {
         return position;
     }
-
 }

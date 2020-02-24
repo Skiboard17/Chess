@@ -1,4 +1,4 @@
-package chess.board;
+package chess.UI;
 
 import chess.piece.Clickable;
 import chess.gameplay.Game;
