@@ -10,6 +10,7 @@ import static chess.piece.Piece.validMove;
 import static chess.util.Util.*;
 
 public class Game {
+    public static boolean gameOn;
     public static Block start;
     public static Block end;
     public static Block[] lastMove;
@@ -31,7 +32,14 @@ public class Game {
             decolorize();
             if (!king.haveMove()) {
                 king.getBlock().setFill(Color.RED);
+                gameOn = false;
             }
         }
+    }
+
+    public static void startGame(){
+        gameOn = true;
+        Scene scene = new Scene(Main.setup());
+        Main.primaryStage.setScene(scene);
     }
 }

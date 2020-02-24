@@ -37,6 +37,9 @@ public abstract class Piece extends ImageView implements Clickable {
 
 
     public boolean click() {
+        if (!Game.gameOn){
+            return false;
+        }
         // deselect if selected
         if (start == null && Turn.isWhiteTurn != this.isWhite) {
             System.out.println(false);

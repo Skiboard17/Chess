@@ -14,6 +14,8 @@ import static chess.util.Util.*;
 
 public class Main extends Application {
 
+    public static Stage primaryStage;
+
     private Parent setup() {
         Pane root = new Pane();
         root.setPrefSize(WIDTH * BLOCK_SIZE + 1, HEIGHT * BLOCK_SIZE + 1);
@@ -67,11 +69,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene scene = new Scene(setup());
+        this.primaryStage = primaryStage;
+        Game.startGame();
         primaryStage.setTitle("Chess!");
-        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        // run a series of pre-set moves
         script();
     }
 

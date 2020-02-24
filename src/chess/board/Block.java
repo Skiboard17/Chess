@@ -69,6 +69,9 @@ public class Block extends Rectangle implements Clickable {
 
     @Override
     public boolean click() {
+        if (!Game.gameOn){
+            return false;
+        }
         if (this.getPiece() != null) {
             return this.getPiece().click();
         } else if (Game.start != null) {

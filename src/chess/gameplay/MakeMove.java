@@ -24,7 +24,6 @@ public class MakeMove {
     }
 
     public static void makeMove(String from, String to) {
-        // TODO: implement this
         try {
             Block start = blockFinder(from);
             Block end = blockFinder(to);
