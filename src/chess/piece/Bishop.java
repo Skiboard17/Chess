@@ -1,6 +1,6 @@
 package chess.piece;
 
-import chess.board.Block;
+import chess.UI.Block;
 import javafx.scene.image.Image;
 
 public class Bishop extends Piece {
@@ -8,10 +8,10 @@ public class Bishop extends Piece {
     public static Bishop makeBishop(int x, int y) {
         Bishop bishop;
         if (y < 2) {
-            Image image = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_blt60.png");
+            Image image = new Image("file:img/Chess_blt60.png");
             bishop = new Bishop(image, true, Block.findBlock(x, y));
         } else {
-            Image image = new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_bdt60.png");
+            Image image = new Image("file:img/Chess_bdt60.png");
             bishop = new Bishop(image, false, Block.findBlock(x, y));
         }
         return bishop;

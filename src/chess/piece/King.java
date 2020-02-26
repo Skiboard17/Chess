@@ -1,6 +1,6 @@
 package chess.piece;
 
-import chess.board.Block;
+import chess.UI.Block;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -13,10 +13,10 @@ public class King extends Piece {
     public static King makeKing(int x, int y) {
         King king;
         if (y < 2) {
-            king = new King(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_klt60.png"), true, Block.findBlock(x, y));
+            king = new King(new Image("file:img/Chess_klt60.png"), true, Block.findBlock(x, y));
             whiteKing = king;
         } else {
-            king = new King(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_kdt60.png"), false, Block.findBlock(x, y));
+            king = new King(new Image("file:img/Chess_kdt60.png"), false, Block.findBlock(x, y));
             blackKing = king;
         }
         return king;

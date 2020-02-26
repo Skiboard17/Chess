@@ -1,22 +1,19 @@
 package chess.UI;
 
-import chess.board.Block;
 import chess.piece.*;
 import javafx.application.Application;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import static chess.gameplay.MakeMove.script;
-
+import static chess.gameplay.Game.startGame;
 import static chess.util.Util.*;
 
 public class Main extends Application {
 
     public static Stage primaryStage;
 
-    private Parent setup() {
+    public static Parent setup() {
         Pane root = new Pane();
         root.setPrefSize(WIDTH * BLOCK_SIZE + 1, HEIGHT * BLOCK_SIZE + 1);
         root.getChildren().add(Blocks);
@@ -36,7 +33,7 @@ public class Main extends Application {
         return root;
     }
 
-    public Piece pieceGenerator(int x, int y) {
+    public static Piece pieceGenerator(int x, int y) {
         Piece piece = null;
         if (y == 2 || y == 7) {
             piece = Pond.makePond(x, y);
@@ -69,13 +66,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        Game.startGame();
+        Main.primaryStage = primaryStage;
+        startGame();
         primaryStage.setTitle("Chess!");
         primaryStage.setResizable(false);
         primaryStage.show();
         // run a series of pre-set moves
-        script();
+//        script();
     }
 
     public static void main(String[] args) {

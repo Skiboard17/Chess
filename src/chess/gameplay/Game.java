@@ -1,9 +1,11 @@
 package chess.gameplay;
 
-import chess.board.Block;
+import chess.UI.Block;
+import chess.UI.Main;
 import chess.piece.King;
 import chess.piece.Piece;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 
 import static chess.piece.Piece.validMove;
@@ -21,12 +23,12 @@ public class Game {
             for (Node node : Blocks.getChildren()) {
                 Block block = (Block) node;
                 if (start.getPiece().canMove(block) && validMove(start, block)) {
-                    colorize(block, Color.LIGHTBLUE);
+                    colorize(block, Color.LIGHTGREEN);
                 }
             }
+            colorize(start, Color.LIGHTBLUE);
         } else if (end == null) {
             end = selected;
-            // TODO: fix turning logic (wrong when checking)
             Piece.movePiece(start, end);
             King king = (King) (Turn.isWhiteTurn ? whiteKing : blackKing);
             decolorize();
@@ -37,7 +39,7 @@ public class Game {
         }
     }
 
-    public static void startGame(){
+    public static void startGame() {
         gameOn = true;
         Scene scene = new Scene(Main.setup());
         Main.primaryStage.setScene(scene);

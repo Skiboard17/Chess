@@ -1,18 +1,17 @@
 package chess.piece;
 
+import chess.UI.Block;
 import chess.gameplay.Game;
 import javafx.scene.image.Image;
-import chess.board.Block;
 
 public class Pond extends Piece {
 
     public static Pond makePond(int x, int y) {
         Pond pond;
         if (y <= 2) {
-            // TODO: learn java.File.io
-            pond = new Pond(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_plt60.png"), true, Block.findBlock(x, y));
+            pond = new Pond(new Image("file:img/Chess_plt60.png"), true, Block.findBlock(x, y));
         } else {
-            pond = new Pond(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_pdt60.png"), false, Block.findBlock(x, y));
+            pond = new Pond(new Image("file:img/Chess_pdt60.png"), false, Block.findBlock(x, y));
         }
         return pond;
     }
@@ -79,7 +78,7 @@ public class Pond extends Piece {
         return false;
     }
 
-    public void promotion(Piece choice){
+    public void promotion(Piece choice) {
         // TODO: implement this with a new Pane for the choices
     }
 }

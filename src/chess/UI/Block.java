@@ -1,7 +1,7 @@
 package chess.UI;
 
-import chess.piece.Clickable;
 import chess.gameplay.Game;
+import chess.piece.Clickable;
 import chess.piece.Piece;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -54,7 +54,6 @@ public class Block extends Rectangle implements Clickable {
         if (this.getPiece() != null) {
             this.getPiece().setSelected(false);
         }
-        this.restoreColor();
         if (Game.start == this) {
             Game.start = null;
         } else if (Game.end == this) {
@@ -69,7 +68,7 @@ public class Block extends Rectangle implements Clickable {
 
     @Override
     public boolean click() {
-        if (!Game.gameOn){
+        if (!Game.gameOn) {
             return false;
         }
         if (this.getPiece() != null) {
@@ -81,5 +80,15 @@ public class Block extends Rectangle implements Clickable {
         }
         System.out.println(false);
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Block{" +
+                "piece=" + piece +
+                ", x=" + this.getX() +
+                ", y=" + this.getY() +
+                ", color=" + this.getFill() +
+                '}';
     }
 }

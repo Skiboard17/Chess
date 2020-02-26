@@ -1,6 +1,6 @@
 package chess.piece;
 
-import chess.board.Block;
+import chess.UI.Block;
 import javafx.scene.image.Image;
 
 public class Queen extends Piece {
@@ -8,9 +8,9 @@ public class Queen extends Piece {
     public static Queen makeQueen(int x, int y) {
         Queen queen;
         if (y < 2) {
-            queen = new Queen(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_qlt60.png"), true, Block.findBlock(x, y));
+            queen = new Queen(new Image("file:img/Chess_qlt60.png"), true, Block.findBlock(x, y));
         } else {
-            queen = new Queen(new Image("file:/C:/Users/bobby/Desktop/Coding/Chess/img/Chess_qdt60.png"), false, Block.findBlock(x, y));
+            queen = new Queen(new Image("file:img/Chess_qdt60.png"), false, Block.findBlock(x, y));
         }
         return queen;
     }

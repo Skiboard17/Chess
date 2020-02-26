@@ -1,6 +1,6 @@
 package chess.util;
 
-import chess.board.Block;
+import chess.UI.Block;
 import chess.piece.Piece;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;

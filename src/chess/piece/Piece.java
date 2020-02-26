@@ -1,12 +1,7 @@
 package chess.piece;
 
+import chess.UI.Block;
 import chess.gameplay.Turn;
-
-import chess.board.Block;
-import chess.piece.Clickable;
-
-import static chess.gameplay.Game.*;
-
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -14,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+import static chess.gameplay.Game.*;
 import static chess.util.Util.*;
 
 public abstract class Piece extends ImageView implements Clickable {
@@ -37,7 +33,7 @@ public abstract class Piece extends ImageView implements Clickable {
 
 
     public boolean click() {
-        if (!Game.gameOn){
+        if (!gameOn) {
             return false;
         }
         // deselect if selected
@@ -118,7 +114,6 @@ public abstract class Piece extends ImageView implements Clickable {
                 }
             }
             lastMove = new Block[]{start, end};
-            // TODO: check the functionality
             startPiece.translate();
             Turn.isWhiteTurn = !Turn.isWhiteTurn;
         }

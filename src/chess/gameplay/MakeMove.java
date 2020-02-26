@@ -1,6 +1,6 @@
 package chess.gameplay;
 
-import chess.board.Block;
+import chess.UI.Block;
 
 public class MakeMove {
 
