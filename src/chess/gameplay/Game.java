@@ -35,6 +35,7 @@ public class Game {
             if (!king.haveMove()) {
                 king.getBlock().setFill(Color.RED);
                 gameOn = false;
+                // TODO: add a restart button that calls startGame()
             }
         }
     }

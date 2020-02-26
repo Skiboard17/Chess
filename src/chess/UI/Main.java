@@ -14,6 +14,7 @@ public class Main extends Application {
     public static Stage primaryStage;
 
     public static Parent setup() {
+        // TODO: add a UI section for information
         Pane root = new Pane();
         root.setPrefSize(WIDTH * BLOCK_SIZE + 1, HEIGHT * BLOCK_SIZE + 1);
         root.getChildren().add(Blocks);
