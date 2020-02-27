@@ -11,8 +11,11 @@ import java.util.List;
 
 public class Util {
     public static final int BLOCK_SIZE = 80;
+    public static final int IMAGE_SIZE = 60;
     public static final int HEIGHT = 8;
     public static final int WIDTH = 8;
+    public static double WINDOW_WIDTH;
+    public static double WINDOW_HEIGHT;
     public static Stage primaryStage;
     public static Group WhitePieces = new Group();
     public static Group BlackPieces = new Group();

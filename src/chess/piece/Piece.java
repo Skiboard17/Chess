@@ -31,7 +31,6 @@ public abstract class Piece extends ImageView implements Clickable {
         setOnMouseClicked(eventHandler);
     }
 
-
     public boolean click() {
         if (!gameOn) {
             return false;
@@ -52,7 +51,6 @@ public abstract class Piece extends ImageView implements Clickable {
         System.out.println(true);
         return true;
     }
-
 
     public void translate() {
         int[] coordinate = convert((int) position.getX(), (int) position.getY(), false);
@@ -177,5 +175,9 @@ public abstract class Piece extends ImageView implements Clickable {
 
     public Block getBlock() {
         return position;
+    }
+
+    static class PieceImage {
+        // TODO: learn static inner class
     }
 }

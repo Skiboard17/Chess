@@ -20,6 +20,8 @@ public class Main extends Application {
         Promotion a = null;
 
         root.setPrefSize(WIDTH * BLOCK_SIZE + 1, HEIGHT * BLOCK_SIZE + 1);
+        WINDOW_HEIGHT = root.getPrefHeight();
+        WINDOW_WIDTH = root.getPrefWidth();
         root.getChildren().add(Blocks);
         root.getChildren().add(WhitePieces);
         root.getChildren().add(BlackPieces);
