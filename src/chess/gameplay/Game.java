@@ -4,6 +4,7 @@ import chess.UI.Block;
 import chess.UI.Main;
 import chess.piece.King;
 import chess.piece.Piece;
+import chess.util.Util;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -43,6 +44,6 @@ public class Game {
     public static void startGame() {
         gameOn = true;
         Scene scene = new Scene(Main.setup());
-        Main.primaryStage.setScene(scene);
+        Util.primaryStage.setScene(scene);
     }
 }

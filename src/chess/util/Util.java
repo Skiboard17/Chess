@@ -4,6 +4,7 @@ import chess.UI.Block;
 import chess.piece.Piece;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class Util {
     public static final int BLOCK_SIZE = 80;
     public static final int HEIGHT = 8;
     public static final int WIDTH = 8;
-
+    public static Stage primaryStage;
     public static Group WhitePieces = new Group();
     public static Group BlackPieces = new Group();
     public static Group Blocks = new Group();
