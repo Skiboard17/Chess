@@ -8,7 +8,7 @@ public class Pond extends Piece {
 
     public static Pond makePond(int x, int y) {
         Pond pond;
-        if (y <= 2) {
+        if (y <= 4) {
             pond = new Pond(new Image("file:img/Chess_plt60.png"), true, Block.findBlock(x, y));
         } else {
             pond = new Pond(new Image("file:img/Chess_pdt60.png"), false, Block.findBlock(x, y));

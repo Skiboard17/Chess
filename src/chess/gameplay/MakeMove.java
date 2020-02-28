@@ -5,22 +5,13 @@ import chess.UI.Block;
 public class MakeMove {
 
     public static void script() {
-        makeMove("e2", "e4");
-        makeMove("g8", "f6");
-        makeMove("e4", "e5");
+        makeMove("d2", "d4");
         makeMove("d7", "d5");
-        makeMove("e5", "d6");
-        makeMove("b7", "b5");
-        makeMove("c2", "c4");
-        makeMove("b5", "b4");
-        makeMove("a2", "a4");
-        makeMove("b4", "a3");
-        makeMove("a1", "a3");
+        makeMove("d1", "d3");
         makeMove("c7", "c5");
-        makeMove("d1", "a4");
-        makeMove("b8", "c6");
-        makeMove("d6", "d7");
-
+        makeMove("d3", "e3");
+        makeMove("g8", "f6");
+        makeMove("e3", "e7");
     }
 
     public static void makeMove(String from, String to) {

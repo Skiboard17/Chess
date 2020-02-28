@@ -7,7 +7,7 @@ public class Bishop extends Piece {
 
     public static Bishop makeBishop(int x, int y) {
         Bishop bishop;
-        if (y < 2) {
+        if (y <= 4) {
             Image image = new Image("file:img/Chess_blt60.png");
             bishop = new Bishop(image, true, Block.findBlock(x, y));
         } else {

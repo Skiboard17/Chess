@@ -2,7 +2,6 @@ package chess.UI;
 
 import chess.piece.*;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
@@ -24,13 +23,15 @@ public class Promotion extends HBox {
 
     public static Promotion makePromotion(Pond pond) {
         if (pond.isWhite()) {
-            Piece castle = Castle.makeCastle(1, 1);
-            Piece knight = Knight.makeKnight(1, 1);
-            Piece bishop = Bishop.makeBishop(1, 1);
-            Piece queen = Queen.makeQueen(1, 1);
+            Piece castle = Castle.makeCastle(3, 4);
+            Piece knight = Knight.makeKnight(4, 4);
+            Piece bishop = Bishop.makeBishop(5, 4);
+            Piece queen = Queen.makeQueen(6, 4);
             Group group = new Group(castle, knight, bishop, queen);
-            for (Node node : group.getChildren()) {
-                Piece piece = (Piece) node;
+            for (int i = 0; i < 4; i++) {
+                Piece piece = (Piece) (group.getChildren().get(i));
+                System.out.println(piece);
+
                 // TODO: implement this without concurrent modification
             }
             return new Promotion(group);

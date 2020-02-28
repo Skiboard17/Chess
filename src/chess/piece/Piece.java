@@ -12,13 +12,16 @@ import javafx.scene.paint.Color;
 import static chess.gameplay.Game.*;
 import static chess.util.Util.*;
 
-public abstract class Piece extends ImageView implements Clickable {
+public abstract class Piece extends Group implements Clickable {
     private final boolean isWhite;
     private Block position;
     private boolean selected;
+    public PieceImage pieceImage;
 
-    public Piece(Image url, boolean isWhite, Block position) {
-        super(url);
+    public Piece(Image image, boolean isWhite, Block position) {
+        super();
+        this.pieceImage = new PieceImage(image);
+        this.getChildren().add(pieceImage);
         this.isWhite = isWhite;
         this.position = position;
         translate();
@@ -54,6 +57,7 @@ public abstract class Piece extends ImageView implements Clickable {
 
     public void translate() {
         int[] coordinate = convert((int) position.getX(), (int) position.getY(), false);
+        // plus 10 to make image centered in the block.
         relocate(coordinate[0] * BLOCK_SIZE + 10, coordinate[1] * BLOCK_SIZE + 10);
     }
 
@@ -177,7 +181,22 @@ public abstract class Piece extends ImageView implements Clickable {
         return position;
     }
 
-    static class PieceImage {
+    @Override
+    public String toString() {
+        String color = isWhite() ? "White " : "Black ";
+        return color + this.getClass().getSimpleName() + " at " + position;
+    }
+
+    static class PieceImage extends ImageView implements Clickable {
         // TODO: learn static inner class
+        public PieceImage(Image image) {
+            super(image);
+        }
+
+        @Override
+        public boolean click() {
+            System.out.println("image clicked");
+            return false;
+        }
     }
 }

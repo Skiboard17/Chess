@@ -12,7 +12,7 @@ public class King extends Piece {
 
     public static King makeKing(int x, int y) {
         King king;
-        if (y < 2) {
+        if (y <= 4) {
             king = new King(new Image("file:img/Chess_klt60.png"), true, Block.findBlock(x, y));
             whiteKing = king;
         } else {
@@ -24,21 +24,6 @@ public class King extends Piece {
 
     public King(Image url, boolean isWhite, Block position) {
         super(url, isWhite, position);
-    }
-
-    // check if the king is checked at kingPos after a piece moves to pos.
-    // pos is used for checking after eating.
-    public boolean notChecked(Block kingPos) {
-        Group opponents = isWhite() ? BlackPieces : WhitePieces;
-        for (Node node : opponents.getChildren()) {
-            Piece piece = (Piece) node;
-            if (piece.canReach(kingPos)) {
-                undoIgnore();
-                return false;
-            }
-        }
-        undoIgnore();
-        return true;
     }
 
     public boolean haveMove() {
@@ -53,6 +38,23 @@ public class King extends Piece {
             }
         }
         return false;
+    }
+
+    // check if the king is checked at kingPos.
+    public boolean notChecked(Block kingPos) {
+        Group opponents = isWhite() ? BlackPieces : WhitePieces;
+        if (kingPos.getPiece() != null) {
+            ignore(kingPos.getPiece(), opponents);
+        }
+        for (Node node : opponents.getChildren()) {
+            Piece piece = (Piece) node;
+            if (piece.canReach(kingPos)) {
+                undoIgnore();
+                return false;
+            }
+        }
+        undoIgnore();
+        return true;
     }
 
 

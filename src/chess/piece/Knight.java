@@ -7,7 +7,7 @@ public class Knight extends Piece {
 
     public static Knight makeKnight(int x, int y) {
         Knight knight;
-        if (y < 2) {
+        if (y <= 4) {
             knight = new Knight(new Image("file:img/Chess_nlt60.png"), true, Block.findBlock(x, y));
         } else {
             knight = new Knight(new Image("file:img/Chess_ndt60.png"), false, Block.findBlock(x, y));

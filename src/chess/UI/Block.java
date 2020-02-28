@@ -84,11 +84,6 @@ public class Block extends Rectangle implements Clickable {
 
     @Override
     public String toString() {
-        return "Block{" +
-                "piece=" + piece +
-                ", x=" + this.getX() +
-                ", y=" + this.getY() +
-                ", color=" + this.getFill() +
-                '}';
+        return "(" + this.getX() + "," + this.getY() + ")";
     }
 }

@@ -9,7 +9,7 @@ public class Castle extends Piece {
 
     public static Castle makeCastle(int x, int y) {
         Castle castle;
-        if (y < 2) {
+        if (y <= 4) {
             castle = new Castle(new Image("file:img/Chess_rlt60.png"), true, Block.findBlock(x, y));
         } else {
             castle = new Castle(new Image("file:img/Chess_rdt60.png"), false, Block.findBlock(x, y));
