@@ -6,15 +6,9 @@ import javafx.scene.image.Image;
 public class Bishop extends Piece {
 
     public static Bishop makeBishop(int x, int y) {
-        Bishop bishop;
-        if (y <= 4) {
-            Image image = new Image("file:img/Chess_blt60.png");
-            bishop = new Bishop(image, true, Block.findBlock(x, y));
-        } else {
-            Image image = new Image("file:img/Chess_bdt60.png");
-            bishop = new Bishop(image, false, Block.findBlock(x, y));
-        }
-        return bishop;
+        boolean isWhite = y <= 4;
+        String url = isWhite ? "file:img/Chess_blt60.png" : "file:img/Chess_bdt60.png";
+        return new Bishop(new Image(url), isWhite, Block.findBlock(x, y));
     }
 
     public Bishop(Image url, boolean isWhite, Block position) {

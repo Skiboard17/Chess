@@ -11,12 +11,12 @@ public class King extends Piece {
     private boolean hasMoved;
 
     public static King makeKing(int x, int y) {
-        King king;
-        if (y <= 4) {
-            king = new King(new Image("file:img/Chess_klt60.png"), true, Block.findBlock(x, y));
+        boolean isWhite = y <= 4;
+        String url = isWhite ? "file:img/Chess_klt60.png" : "file:img/Chess_kdt60.png";
+        King king = new King(new Image(url), isWhite, Block.findBlock(x, y));
+        if (isWhite) {
             whiteKing = king;
         } else {
-            king = new King(new Image("file:img/Chess_kdt60.png"), false, Block.findBlock(x, y));
             blackKing = king;
         }
         return king;

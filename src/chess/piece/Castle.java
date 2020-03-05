@@ -8,13 +8,9 @@ public class Castle extends Piece {
     private boolean hasMoved;
 
     public static Castle makeCastle(int x, int y) {
-        Castle castle;
-        if (y <= 4) {
-            castle = new Castle(new Image("file:img/Chess_rlt60.png"), true, Block.findBlock(x, y));
-        } else {
-            castle = new Castle(new Image("file:img/Chess_rdt60.png"), false, Block.findBlock(x, y));
-        }
-        return castle;
+        boolean isWhite = y <= 4;
+        String url = isWhite ? "file:img/Chess_rlt60.png" : "file:img/Chess_rdt60.png";
+        return new Castle(new Image(url), isWhite, Block.findBlock(x, y));
     }
 
     public Castle(Image url, boolean isWhite, Block position) {

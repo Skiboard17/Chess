@@ -6,13 +6,9 @@ import javafx.scene.image.Image;
 public class Knight extends Piece {
 
     public static Knight makeKnight(int x, int y) {
-        Knight knight;
-        if (y <= 4) {
-            knight = new Knight(new Image("file:img/Chess_nlt60.png"), true, Block.findBlock(x, y));
-        } else {
-            knight = new Knight(new Image("file:img/Chess_ndt60.png"), false, Block.findBlock(x, y));
-        }
-        return knight;
+        boolean isWhite = y <= 4;
+        String url = isWhite ? "file:img/Chess_nlt60.png" : "file:img/Chess_ndt60.png";
+        return new Knight(new Image(url), isWhite, Block.findBlock(x, y));
     }
 
     public Knight(Image url, boolean isWhite, Block position) {

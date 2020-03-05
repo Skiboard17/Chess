@@ -30,6 +30,9 @@ public class Block extends Rectangle implements Clickable {
     }
 
     public static Block findBlock(int x, int y) {
+        if (x <= 0 || x >= 9 || y <= 0 || y >= 9) {
+            return null;
+        }
         int index = (8 - y) * 8 + x - 1;
         return (Block) Blocks.getChildren().get(index);
     }

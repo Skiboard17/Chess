@@ -6,13 +6,9 @@ import javafx.scene.image.Image;
 public class Queen extends Piece {
 
     public static Queen makeQueen(int x, int y) {
-        Queen queen;
-        if (y <= 4) {
-            queen = new Queen(new Image("file:img/Chess_qlt60.png"), true, Block.findBlock(x, y));
-        } else {
-            queen = new Queen(new Image("file:img/Chess_qdt60.png"), false, Block.findBlock(x, y));
-        }
-        return queen;
+        boolean isWhite = y <= 4;
+        String url = isWhite ? "file:img/Chess_qlt60.png" : "file:img/Chess_qdt60.png";
+        return new Queen(new Image(url), isWhite, Block.findBlock(x, y));
     }
 
     public Queen(Image url, boolean isWhite, Block position) {

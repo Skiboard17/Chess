@@ -7,13 +7,9 @@ import javafx.scene.image.Image;
 public class Pond extends Piece {
 
     public static Pond makePond(int x, int y) {
-        Pond pond;
-        if (y <= 4) {
-            pond = new Pond(new Image("file:img/Chess_plt60.png"), true, Block.findBlock(x, y));
-        } else {
-            pond = new Pond(new Image("file:img/Chess_pdt60.png"), false, Block.findBlock(x, y));
-        }
-        return pond;
+        boolean isWhite = y <= 4;
+        String url = isWhite ? "file:img/Chess_plt60.png" : "file:img/Chess_pdt60.png";
+        return new Pond(new Image(url), isWhite, Block.findBlock(x, y));
     }
 
     public Pond(Image url, boolean isWhite, Block position) {

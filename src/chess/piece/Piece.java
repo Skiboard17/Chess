@@ -140,6 +140,8 @@ public abstract class Piece extends Group implements Clickable {
     // a helper that moves a piece from start to end
     // Note: it is not restored to the initial state
     private static boolean validityHelper(Block start, Block end) {
+        System.out.println(start);
+        System.out.println(end);
         King king = (King) (start.getPiece().isWhite ? whiteKing : blackKing);
         Piece startPiece = start.getPiece();
         Piece endPiece = end.getPiece();
@@ -188,7 +190,6 @@ public abstract class Piece extends Group implements Clickable {
     }
 
     static class PieceImage extends ImageView implements Clickable {
-        // TODO: learn static inner class
         public PieceImage(Image image) {
             super(image);
         }
