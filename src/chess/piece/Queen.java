@@ -17,12 +17,12 @@ public class Queen extends Piece {
 
     @Override
     public boolean canMove(Block end) {
-        return Castle.CastleMoveCheck(this.getBlock(), end) || Bishop.BishopMoveCheck(this.getBlock(), end);
+        return Castle.CastleMoveCheck(this.getPosition(), end) || Bishop.BishopMoveCheck(this.getPosition(), end);
     }
 
     @Override
     public boolean canReach(Block end) {
-        return Castle.CastleReachCheck(this.getBlock(), end) || Bishop.BishopReachCheck(this.getBlock(), end);
+        return Castle.CastleReachCheck(this.getPosition(), end) || Bishop.BishopReachCheck(this.getPosition(), end);
     }
 
 }

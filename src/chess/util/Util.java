@@ -3,6 +3,7 @@ package chess.util;
 import chess.UI.Block;
 import chess.piece.Piece;
 import javafx.scene.Group;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -10,13 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
+    public static boolean runScript = true;
     public static final int BLOCK_SIZE = 80;
     public static final int IMAGE_SIZE = 60;
     public static final int HEIGHT = 8;
     public static final int WIDTH = 8;
     public static double WINDOW_WIDTH;
     public static double WINDOW_HEIGHT;
-    public static Stage primaryStage;
+    public static Pane pane;
+    public static Stage window;
     public static Group WhitePieces = new Group();
     public static Group BlackPieces = new Group();
     public static Group Blocks = new Group();
@@ -25,6 +28,7 @@ public class Util {
     public static Piece blackKing;
     public static Piece ignored;
     private static Group ignoreGroup;
+    public static boolean waitingForPromotion;
 
     public static int[] convert(int x, int y, boolean comp) {
         if (comp) {

@@ -2,10 +2,13 @@ package chess.gameplay;
 
 import chess.UI.Block;
 import chess.UI.Main;
+import chess.UI.Promotion;
 import chess.piece.King;
 import chess.piece.Piece;
+import chess.piece.Pond;
 import chess.util.Util;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 
@@ -29,12 +32,17 @@ public class Game {
             }
             colorize(start, Color.LIGHTBLUE);
         } else if (end == null) {
+            Piece piece = start.getPiece();
             end = selected;
             Piece.movePiece(start, end);
+            if (piece instanceof Pond && (selected.getPosition()[1] == 8 || selected.getPosition()[1] == 0)) {
+                Pond pond = (Pond) piece;
+                Promotion.makePromotion(pond);
+            }
             King king = (King) (Turn.isWhiteTurn ? whiteKing : blackKing);
             decolorize();
             if (!king.haveMove()) {
-                king.getBlock().setFill(Color.RED);
+                king.getPosition().setFill(Color.RED);
                 gameOn = false;
                 // TODO: add a restart button that calls startGame()
             }
@@ -43,7 +51,8 @@ public class Game {
 
     public static void startGame() {
         gameOn = true;
-        Scene scene = new Scene(Main.setup());
-        Util.primaryStage.setScene(scene);
+        Parent root = Main.setup();
+        Scene scene = new Scene(root);
+        Util.window.setScene(scene);
     }
 }

@@ -17,13 +17,13 @@ public class Main extends Application {
     public static Parent setup() {
         // TODO: add a UI section for information
         Pane root = new Pane();
+        Util.pane = root;
         root.setPrefSize(WIDTH * BLOCK_SIZE + 1, HEIGHT * BLOCK_SIZE + 1);
         WINDOW_HEIGHT = root.getPrefHeight();
         WINDOW_WIDTH = root.getPrefWidth();
         root.getChildren().add(Blocks);
         root.getChildren().add(WhitePieces);
         root.getChildren().add(BlackPieces);
-        Pond a = null;
         for (int y = 0; y < WIDTH; y++) {
             for (int x = 0; x < HEIGHT; x++) {
                 // setting up boards
@@ -32,18 +32,9 @@ public class Main extends Application {
                 // setting up pieces
                 int[] coordinate = convert(x, y, true);
                 Piece piece = pieceGenerator(coordinate[0], coordinate[1]);
-                if (piece instanceof Pond) {
-                    a = (Pond) piece;
-                }
                 block.setPiece(piece);
-                System.out.println(piece);
             }
         }
-        //DEBUG
-//        if (a != null) {
-//            Promotion promotion = Promotion.makePromotion(a);
-//            root.getChildren().add(promotion);
-//        }
         return root;
     }
 
@@ -80,13 +71,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Util.primaryStage = primaryStage;
+        Util.window = primaryStage;
         startGame();
         primaryStage.setTitle("Chess!");
         primaryStage.setResizable(false);
         primaryStage.show();
         // run a series of pre-set moves
-        script();
+        if (runScript) {
+            script();
+        }
 
     }
 

@@ -17,12 +17,12 @@ public class Bishop extends Piece {
 
     @Override
     public boolean canMove(Block end) {
-        return BishopMoveCheck(this.getBlock(), end);
+        return BishopMoveCheck(this.getPosition(), end);
     }
 
     @Override
     public boolean canReach(Block end) {
-        return BishopReachCheck(this.getBlock(), end);
+        return BishopReachCheck(this.getPosition(), end);
     }
 
     public static boolean BishopMoveCheck(Block start, Block end) {

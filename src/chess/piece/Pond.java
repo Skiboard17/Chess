@@ -21,8 +21,8 @@ public class Pond extends Piece {
         if (this.hasSameColor(end)) {
             return false;
         }
-        int startX = this.getBlock().getPosition()[0];
-        int startY = this.getBlock().getPosition()[1];
+        int startX = this.getPosition().getPosition()[0];
+        int startY = this.getPosition().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
         // regular forward movement
@@ -64,8 +64,8 @@ public class Pond extends Piece {
 
     @Override
     public boolean canReach(Block end) {
-        int startX = this.getBlock().getPosition()[0];
-        int startY = this.getBlock().getPosition()[1];
+        int startX = this.getPosition().getPosition()[0];
+        int startY = this.getPosition().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
         if (Math.abs(startX - endX) == 1) {

@@ -27,7 +27,7 @@ public class Castle extends Piece {
 
     @Override
     public boolean canReach(Block end) {
-        return CastleReachCheck(this.getBlock(), end);
+        return CastleReachCheck(this.getPosition(), end);
     }
 
     public static boolean CastleMoveCheck(Block start, Block end) {
@@ -38,8 +38,8 @@ public class Castle extends Piece {
     }
 
     public static boolean CastleReachCheck(Block start, Block end) {
-        int startX = start.getPiece().getBlock().getPosition()[0];
-        int startY = start.getPiece().getBlock().getPosition()[1];
+        int startX = start.getPiece().getPosition().getPosition()[0];
+        int startY = start.getPiece().getPosition().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
         if (startX == endX || startY == endY) {

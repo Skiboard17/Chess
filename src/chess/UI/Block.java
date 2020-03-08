@@ -78,10 +78,8 @@ public class Block extends Rectangle implements Clickable {
             return this.getPiece().click();
         } else if (Game.start != null) {
             Game.trackMove(this);
-            System.out.println(true);
             return true;
         }
-        System.out.println(false);
         return false;
     }
 

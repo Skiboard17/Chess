@@ -1,6 +1,7 @@
 package chess.piece;
 
 import chess.UI.Block;
+import chess.UI.Promotion;
 import chess.gameplay.Turn;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -24,34 +25,43 @@ public abstract class Piece extends Group implements Clickable {
         this.getChildren().add(pieceImage);
         this.isWhite = isWhite;
         this.position = position;
-        translate();
-        if (isWhite) {
-            WhitePieces.getChildren().add(this);
-        } else {
-            BlackPieces.getChildren().add(this);
+        if (position != null) {
+            translate();
+            if (isWhite) {
+                WhitePieces.getChildren().add(this);
+            } else {
+                BlackPieces.getChildren().add(this);
+            }
         }
         EventHandler<MouseEvent> eventHandler = e -> click();
         setOnMouseClicked(eventHandler);
     }
 
+    /***
+     *
+     * @return true if works as intended, false if no action happens after
+     */
     public boolean click() {
         if (!gameOn) {
             return false;
         }
-        // deselect if selected
+        if (waitingForPromotion) {
+            if (position == null) {
+                Promotion.promote(this);
+                return true;
+            }
+            return false;
+        }
         if (start == null && Turn.isWhiteTurn != this.isWhite) {
-            System.out.println(false);
             return false;
         }
         if (selected) {
             this.position.deselect();
-            System.out.println(false);
             return false;
         }
         this.position.setFill(Color.LIGHTBLUE);
         selected = true;
         trackMove(this.position);
-        System.out.println(true);
         return true;
     }
 
@@ -140,8 +150,6 @@ public abstract class Piece extends Group implements Clickable {
     // a helper that moves a piece from start to end
     // Note: it is not restored to the initial state
     private static boolean validityHelper(Block start, Block end) {
-        System.out.println(start);
-        System.out.println(end);
         King king = (King) (start.getPiece().isWhite ? whiteKing : blackKing);
         Piece startPiece = start.getPiece();
         Piece endPiece = end.getPiece();
@@ -157,7 +165,7 @@ public abstract class Piece extends Group implements Clickable {
         start.restoreColor();
         end.restoreColor();
         // check if it is a valid move
-        return king.notChecked(king.getBlock());
+        return king.notChecked(king.getPosition());
     }
 
     public void setSelected(boolean selected) {
@@ -179,8 +187,12 @@ public abstract class Piece extends Group implements Clickable {
         return end.getPiece().isWhite() == this.isWhite();
     }
 
-    public Block getBlock() {
+    public Block getPosition() {
         return position;
+    }
+
+    public void setPosition(Block position) {
+        this.position = position;
     }
 
     @Override
@@ -196,7 +208,6 @@ public abstract class Piece extends Group implements Clickable {
 
         @Override
         public boolean click() {
-            System.out.println("image clicked");
             return false;
         }
     }

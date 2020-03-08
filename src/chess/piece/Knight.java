@@ -20,8 +20,8 @@ public class Knight extends Piece {
         if (this.hasSameColor(end)) {
             return false;
         }
-        int startX = this.getBlock().getPosition()[0];
-        int startY = this.getBlock().getPosition()[1];
+        int startX = this.getPosition().getPosition()[0];
+        int startY = this.getPosition().getPosition()[1];
         int endX = end.getPosition()[0];
         int endY = end.getPosition()[1];
         return Math.abs(startX - endX) == 2 && Math.abs(startY - endY) == 1 || Math.abs(startX - endX) == 1 && Math.abs(startY - endY) == 2;
