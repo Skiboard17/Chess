@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 
+import static chess.gameplay.Turn.isWhiteTurn;
 import static chess.piece.Piece.validMove;
 import static chess.util.Util.*;
 
@@ -35,17 +36,12 @@ public class Game {
             Piece piece = start.getPiece();
             end = selected;
             Piece.movePiece(start, end);
-            if (piece instanceof Pond && (selected.getPosition()[1] == 8 || selected.getPosition()[1] == 0)) {
+            if (piece instanceof Pond && (selected.getPosition()[1] == 8 || selected.getPosition()[1] == 1)) {
                 Pond pond = (Pond) piece;
                 Promotion.makePromotion(pond);
             }
-            King king = (King) (Turn.isWhiteTurn ? whiteKing : blackKing);
             decolorize();
-            if (!king.haveMove()) {
-                king.getPosition().setFill(Color.RED);
-                gameOn = false;
-                // TODO: add a restart button that calls startGame()
-            }
+            checkKingAlive();
         }
     }
 
@@ -54,5 +50,14 @@ public class Game {
         Parent root = Main.setup();
         Scene scene = new Scene(root);
         Util.window.setScene(scene);
+    }
+
+    public static void checkKingAlive() {
+        King king = (King) (isWhiteTurn ? whiteKing : blackKing);
+        if (!king.haveMove()) {
+            king.getPosition().setFill(Color.RED);
+            gameOn = false;
+            // TODO: add a restart button that calls startGame()
+        }
     }
 }

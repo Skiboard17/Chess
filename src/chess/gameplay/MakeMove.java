@@ -7,12 +7,14 @@ public class MakeMove {
     public static void script() {
         makeMove("d2", "d4");
         makeMove("e7", "e5");
-        makeMove("d4", "e5");
-        makeMove("a7", "a5");
-        makeMove("e5", "e6");
-        makeMove("a5", "a4");
-        makeMove("e6", "e7");
-        makeMove("a4", "a3");
+        makeMove("c2", "c4");
+        makeMove("e5", "d4");
+        makeMove("c4", "c5");
+        makeMove("d4", "d3");
+        makeMove("c5", "c6");
+        makeMove("d3", "e2");
+        makeMove("c6", "b7");
+
     }
 
     public static void makeMove(String from, String to) {
