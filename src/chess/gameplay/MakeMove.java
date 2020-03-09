@@ -4,7 +4,17 @@ import chess.UI.Block;
 
 public class MakeMove {
 
+    // Game-Related Constants
+    public static boolean runScript = true;
+
     public static void script() {
+        // four-step kill script
+        makeMove("e2", "e4");
+        makeMove("f7", "f5");
+        makeMove("d2", "d4");
+        makeMove("g7", "g5");
+
+        /*// promotion script
         makeMove("d2", "d4");
         makeMove("e7", "e5");
         makeMove("c2", "c4");
@@ -13,8 +23,7 @@ public class MakeMove {
         makeMove("d4", "d3");
         makeMove("c5", "c6");
         makeMove("d3", "e2");
-        makeMove("c6", "b7");
-
+        makeMove("c6", "b7");*/
     }
 
     public static void makeMove(String from, String to) {

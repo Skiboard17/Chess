@@ -18,12 +18,12 @@ public class Promotion extends BorderPane {
     private static Promotion promotion;
 
     public Promotion(Group group) {
-        // TODO: add centering and background and clickable
         super();
         this.setStyle("-fx-background-color: rgba(255, 255, 255, 0.95);");
-        this.prefHeight(IMAGE_SIZE * 1.5);
-        this.prefWidth(IMAGE_SIZE * 4);
-        this.relocate(WINDOW_WIDTH / 2 - IMAGE_SIZE * 2, WINDOW_HEIGHT / 2 - IMAGE_SIZE / 2);
+        this.setPrefHeight(IMAGE_SIZE * 1.5);
+        this.setPrefWidth(IMAGE_SIZE * 4);
+//        this.relocate(WINDOW_WIDTH / 2 - IMAGE_SIZE * 2, WINDOW_HEIGHT / 2 - IMAGE_SIZE / 2);
+        centering(this, mainPage);
         Label label = new Label("Please Select Your Promotion");
         label.setPrefHeight(IMAGE_SIZE / 2);
         label.setFont(new Font("Rockwell", 16));
@@ -37,7 +37,7 @@ public class Promotion extends BorderPane {
         this.setCenter(hBox);
         // finishing up
         promotion = this;
-        pane.getChildren().add(this);
+        mainPage.getChildren().add(this);
         waitingForPromotion = true;
     }
 
@@ -57,7 +57,7 @@ public class Promotion extends BorderPane {
     }
 
     public static void deconstruct() {
-        pane.getChildren().remove(promotion);
+        mainPage.getChildren().remove(promotion);
     }
 
     public static void makePromotion(Pond pond) {

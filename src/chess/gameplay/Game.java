@@ -2,14 +2,11 @@ package chess.gameplay;
 
 import chess.UI.Block;
 import chess.UI.Main;
-import chess.UI.Promotion;
 import chess.piece.King;
 import chess.piece.Piece;
-import chess.piece.Pond;
-import chess.util.Util;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 
 import static chess.gameplay.Turn.isWhiteTurn;
@@ -33,13 +30,8 @@ public class Game {
             }
             colorize(start, Color.LIGHTBLUE);
         } else if (end == null) {
-            Piece piece = start.getPiece();
             end = selected;
             Piece.movePiece(start, end);
-            if (piece instanceof Pond && (selected.getPosition()[1] == 8 || selected.getPosition()[1] == 1)) {
-                Pond pond = (Pond) piece;
-                Promotion.makePromotion(pond);
-            }
             decolorize();
             checkKingAlive();
         }
@@ -47,9 +39,10 @@ public class Game {
 
     public static void startGame() {
         gameOn = true;
-        Parent root = Main.setup();
-        Scene scene = new Scene(root);
-        Util.window.setScene(scene);
+        isWhiteTurn = true;
+        Scene scene = new Scene(Main.setup());
+        mainScene = scene;
+        window.setScene(scene);
     }
 
     public static void checkKingAlive() {
@@ -57,7 +50,13 @@ public class Game {
         if (!king.haveMove()) {
             king.getPosition().setFill(Color.RED);
             gameOn = false;
-            // TODO: add a restart button that calls startGame()
+            // adding a restart button
+            Button restart = new Button("Restart");
+            mainPage.getChildren().add(restart);
+            restart.setPrefHeight(40);
+            restart.setPrefWidth(80);
+            centering(restart, mainPage);
+            restart.setOnMouseClicked(e -> startGame());
         }
     }
 }

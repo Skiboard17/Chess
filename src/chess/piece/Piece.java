@@ -2,7 +2,6 @@ package chess.piece;
 
 import chess.UI.Block;
 import chess.UI.Promotion;
-import chess.gameplay.Turn;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -11,17 +10,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 import static chess.gameplay.Game.*;
+import static chess.gameplay.Turn.isWhiteTurn;
 import static chess.util.Util.*;
 
 public abstract class Piece extends Group implements Clickable {
     private final boolean isWhite;
     private Block position;
     private boolean selected;
-    public PieceImage pieceImage;
+    public ImageView pieceImage;
 
     public Piece(Image image, boolean isWhite, Block position) {
         super();
-        this.pieceImage = new PieceImage(image);
+        this.pieceImage = new ImageView(image);
         this.getChildren().add(pieceImage);
         this.isWhite = isWhite;
         this.position = position;
@@ -52,14 +52,15 @@ public abstract class Piece extends Group implements Clickable {
             }
             return false;
         }
-        if (start == null && Turn.isWhiteTurn != this.isWhite) {
+        // start piece color doesn't match
+        if (start == null && isWhiteTurn != this.isWhite) {
             return false;
         }
         if (selected) {
             this.position.deselect();
             return false;
         }
-        this.position.setFill(Color.LIGHTBLUE);
+        colorize(this.getPosition(), Color.LIGHTBLUE);
         selected = true;
         trackMove(this.position);
         return true;
@@ -68,7 +69,8 @@ public abstract class Piece extends Group implements Clickable {
     public void translate() {
         int[] coordinate = convert((int) position.getX(), (int) position.getY(), false);
         // plus 10 to make image centered in the block.
-        relocate(coordinate[0] * BLOCK_SIZE + 10, coordinate[1] * BLOCK_SIZE + 10);
+        int offset = (BLOCK_SIZE - IMAGE_SIZE) / 2;
+        relocate(coordinate[0] * BLOCK_SIZE + offset, coordinate[1] * BLOCK_SIZE + offset);
     }
 
     // caller of moving a piece from start to end
@@ -77,6 +79,13 @@ public abstract class Piece extends Group implements Clickable {
         // move successfully
         if (piece.canMove(end)) {
             movePieceHelper(start, end);
+            if (piece instanceof Pond) {
+                int endLine = piece.isWhite() ? 8 : 1;
+                if (end.getPosition()[1] == endLine) {
+                    Pond pond = (Pond) piece;
+                    Promotion.makePromotion(pond);
+                }
+            }
         }
         start.deselect();
         end.deselect();
@@ -104,22 +113,27 @@ public abstract class Piece extends Group implements Clickable {
                     int castleStartX = endPos[0] == 7 ? 8 : 1;
                     int castleStartY = endPos[1];
                     Block castleStart = Block.findBlock(castleStartX, castleStartY);
-                    Piece castle = castleStart.getPiece();
-                    int castleEndX = endPos[0] == 7 ? 6 : 4;
-                    Block castleEnd = Block.findBlock(castleEndX, castleStartY);
-                    validityHelper(castleStart, castleEnd);
-                    castle.translate();
+                    if (castleStart != null) {
+                        Piece castle = castleStart.getPiece();
+                        int castleEndX = endPos[0] == 7 ? 6 : 4;
+                        Block castleEnd = Block.findBlock(castleEndX, castleStartY);
+                        validityHelper(castleStart, castleEnd);
+                        castle.translate();
+                    }
                 }
                 ((King) startPiece).setMoved();
             } else if (startPiece instanceof Castle) {
                 ((Castle) startPiece).setMoved();
             } else if (startPiece instanceof Pond) {
+                // check for en passant
                 int[] startPos = start.getPosition();
                 int[] endPos = end.getPosition();
-                if (Math.abs(startPos[0] - endPos[0]) == 1 && Math.abs(startPos[1] - endPos[1]) == 1
+                if (Math.abs(startPos[0] - endPos[0]) == 1
+                        && Math.abs(startPos[1] - endPos[1]) == 1
                         && endPiece == null) {
                     int offset = startPiece.isWhite ? -1 : 1;
                     Block block = Block.findBlock(endPos[0], endPos[1] + offset);
+                    if (block == null) return;
                     Group opponentGroup = startPiece.isWhite ? BlackPieces : WhitePieces;
                     opponentGroup.getChildren().remove(block.getPiece());
                     block.setPiece(null);
@@ -127,7 +141,7 @@ public abstract class Piece extends Group implements Clickable {
             }
             lastMove = new Block[]{start, end};
             startPiece.translate();
-            Turn.isWhiteTurn = !Turn.isWhiteTurn;
+            isWhiteTurn = !isWhiteTurn;
         }
     }
 
@@ -150,6 +164,9 @@ public abstract class Piece extends Group implements Clickable {
     // a helper that moves a piece from start to end
     // Note: it is not restored to the initial state
     private static boolean validityHelper(Block start, Block end) {
+        if (start == null || end == null) {
+            return false;
+        }
         King king = (King) (start.getPiece().isWhite ? whiteKing : blackKing);
         Piece startPiece = start.getPiece();
         Piece endPiece = end.getPiece();
@@ -199,16 +216,5 @@ public abstract class Piece extends Group implements Clickable {
     public String toString() {
         String color = isWhite() ? "White " : "Black ";
         return color + this.getClass().getSimpleName() + " at " + position;
-    }
-
-    static class PieceImage extends ImageView implements Clickable {
-        public PieceImage(Image image) {
-            super(image);
-        }
-
-        @Override
-        public boolean click() {
-            return false;
-        }
     }
 }

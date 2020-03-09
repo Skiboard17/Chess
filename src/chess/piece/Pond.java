@@ -73,8 +73,4 @@ public class Pond extends Piece {
         }
         return false;
     }
-
-    public void promotion(Piece choice) {
-        // TODO: implement this with a new Pane for the choices
-    }
 }

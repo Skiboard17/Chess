@@ -68,7 +68,10 @@ public class King extends Piece {
                 && Math.abs(position[0] - endPos[0]) == 2 && !hasMoved()) {
             int castleY = isWhite() ? 1 : 8;
             int castleX = endPos[0] == 7 ? 8 : 1;
-            Piece castlePiece = Block.findBlock(castleX, castleY).getPiece();
+
+            Block block = Block.findBlock(castleX, castleY);
+            if (block == null) return false;
+            Piece castlePiece = block.getPiece();
             if (castlePiece instanceof Castle) {
                 Castle castle = (Castle) castlePiece;
                 if (castle.hasMoved()) {
@@ -79,6 +82,7 @@ public class King extends Piece {
             }
             int mean = (position[0] + end.getPosition()[0]) / 2;
             Block between = Block.findBlock(mean, position[1]);
+            if (between == null) return false;
             return between.getPiece() == null && this.notChecked(between);
         }
         return canReach(end);

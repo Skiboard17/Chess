@@ -1,8 +1,10 @@
 package chess.UI;
 
+import chess.gameplay.MakeMove;
 import chess.piece.*;
 import chess.util.Util;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -15,12 +17,14 @@ public class Main extends Application {
 
 
     public static Parent setup() {
-        // TODO: add a UI section for information
         Pane root = new Pane();
-        Util.pane = root;
+        Util.mainPage = root;
         root.setPrefSize(WIDTH * BLOCK_SIZE + 1, HEIGHT * BLOCK_SIZE + 1);
         WINDOW_HEIGHT = root.getPrefHeight();
         WINDOW_WIDTH = root.getPrefWidth();
+        Blocks = new Group();
+        WhitePieces = new Group();
+        BlackPieces = new Group();
         root.getChildren().add(Blocks);
         root.getChildren().add(WhitePieces);
         root.getChildren().add(BlackPieces);
@@ -77,7 +81,7 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
         // run a series of pre-set moves
-        if (runScript) {
+        if (MakeMove.runScript) {
             script();
         }
 
